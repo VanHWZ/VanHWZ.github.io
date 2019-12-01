@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Vincent&#39;s webpage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Here is Vincent&amp;apos;s life.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vincent&#39;s webpage">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+<meta property="og:site_name" content="Vincent&#39;s webpage">
+<meta property="og:description" content="Here is Vincent&amp;apos;s life.">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Vincent&#39;s webpage" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="tomoshibi.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Vincent&#39;s webpage</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-database-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/02/database-1/" class="article-date">
+  <time datetime="2019-12-01T16:52:33.000Z" itemprop="datePublished">2019-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/02/database-1/">Database 前半学期复习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Data-Model"><a href="#Data-Model" class="headerlink" title="Data Model"></a>Data Model</h1><h2 id="Hierarchical-Data-Model"><a href="#Hierarchical-Data-Model" class="headerlink" title="Hierarchical Data Model"></a>Hierarchical Data Model</h2><p><strong>Basic idea</strong>: many things in real are organized in hierarchy</p>
+<p><strong>tree structure</strong></p>
+<p>record (储存的单位) and field (字段)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>department</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>NAME</td>
+<td>LOCATION</td>
+</tr>
+</tbody></table>
+<p>Parent-Child relationship (PCR) : express a 1:N relation between 2 record types</p>
+<ul>
+<li>a such data schema consists of PCRs</li>
+<li>every PCR expresses one 1:N relationship</li>
+<li>every record type can only have one parent</li>
+</ul>
+<p><strong>Virtual Record</strong></p>
+<ul>
+<li><p>M:N relationship between two different record types</p>
+</li>
+<li><p>1 type is the child of more than 2 PCRs</p>
+</li>
+<li><p>N-ary relationship</p>
+</li>
+<li><p>To avoid redundant, virtual record is introduced to express above relationships. It is a pointer in fact.</p>
+</li>
+</ul>
+<h2 id="Network-Data-Model"><a href="#Network-Data-Model" class="headerlink" title="Network Data Model"></a>Network Data Model</h2><p><strong>Basic data structure:  set</strong>, represents 1:N relationship</p>
+<p><strong>chain structure</strong></p>
+<p>It breakthrough the limit of hierarchical structure, so can express non-hierarchical data more easy</p>
+<p>Record and data items: </p>
+<ul>
+<li>data items are similar as field in hierarchical model, but it can be vector</li>
+</ul>
+<p>Set: </p>
+<ul>
+<li>express the 1:N relationship between two record types.</li>
+</ul>
+<p>LINK record type: </p>
+<ul>
+<li><p>used to express self relationship, M:N relationship and N-ary relationship</p>
+</li>
+<li><p>virtual entity</p>
+</li>
+</ul>
+<h2 id="Rational-Data-Model"><a href="#Rational-Data-Model" class="headerlink" title="Rational Data Model"></a>Rational Data Model</h2><p><strong>Basic data structure:  table</strong></p>
+<p>Attributes and domains</p>
+<ul>
+<li>每列为attribute</li>
+<li>domain 为 attribute 的 domain</li>
+<li>全为atomic data，如整数、字符串等，而非aggregated data</li>
+<li>NULL 不是0，空缺</li>
+</ul>
+<p>Relation and Tuple</p>
+<ul>
+<li>table, column, row</li>
+</ul>
+<p>Primary Key</p>
+<ul>
+<li><strong>candidate key</strong> also <strong>key</strong>:<ul>
+<li>No 2 distinct tuples can have same values in this set of attributes </li>
+<li>previous condition is not true for any subset of this set, else a <strong>super key</strong></li>
+</ul>
+</li>
+<li>choose 1 <strong>candidate key</strong> to be <strong>primary key</strong></li>
+<li><strong>primary key</strong> or <strong>alternative key</strong></li>
+<li>If the primary key consists of all attributes of a relation, it is called <strong>all key</strong>.</li>
+</ul>
+<p>Foreign key</p>
+<ul>
+<li>Set of attributes in one relation that is used to ‘refer’ to a tuple in another relation.</li>
+<li>Must correspond to primary key of the second relation. </li>
+<li>Like a ‘logical pointer’</li>
+</ul>
+<p>Domain integrity constraint</p>
+<ul>
+<li>在定义域内</li>
+</ul>
+<p>Entity integrity constraint</p>
+<ul>
+<li>Every relation should have a primary key.</li>
+<li>The value of primary key of each tuple must be unique. </li>
+<li>Primary key cannot be NULL. </li>
+<li>This is so-called entity integrity constraint.</li>
+</ul>
+<p>Relational Algebra</p>
+<ul>
+<li><p>projection</p>
+<ul>
+<li>Schema of result contains exactly the fields in the projection list, with the same names that they had in the input relation</li>
+<li>Projection operator has to eliminate duplicates!<ul>
+<li>Note: real systems typically do not do duplicate elimination unless the user explicitly asks for it. </li>
+<li>reason: maybe the user needs the duplicates</li>
+</ul>
+</li>
+<li>π _age(S2)</li>
+</ul>
+</li>
+<li><p>selection</p>
+<ul>
+<li>selects rows that satisfy the <strong>selection condition</strong></li>
+<li>no duplicates in result! 自然而然</li>
+<li>π <sub>sname</sub>, rating (σ <sub>rating&gt;8</sub>(S2))</li>
+</ul>
+</li>
+<li><p>Union, Intersection, Set-Difference</p>
+<ul>
+<li>input relations must be <strong>union-compatible</strong><ul>
+<li><strong>same number of fields</strong></li>
+<li><strong>corresponding attributes</strong> have the <strong>same type</strong></li>
+</ul>
+</li>
+<li>S1-S2: 在S1不在S2</li>
+<li>S1∪S2</li>
+<li>S1 ∩ S2</li>
+</ul>
+</li>
+<li><p>Cross-product</p>
+<ul>
+<li>Result schema has one attribute per attribute of S1 and R1, with attribute names inherited if possible.</li>
+<li>Conflict: Both S1 and R1 have an attribute called sid.</li>
+<li><strong>Renaming operator</strong>: ρ(C(1→sid1,5→sid2), S1×R1)</li>
+</ul>
+</li>
+<li><p>Joins</p>
+<ul>
+<li><p><strong>theta-join</strong></p>
+</li>
+<li><p>Condition Join : R ⋈<sub>C</sub>S = σ<sub>C</sub>(R ×S)，σ<sub>sid</sub>(R ×S)<strong>即只保留一列sid，且只保留sid共有的行</strong></p>
+</li>
+</ul>
+<ol>
+<li>cross-product</li>
+<li>select the rows that satisfy the condition</li>
+</ol>
+<ul>
+<li>more efficient to query</li>
+<li><strong>equi-join</strong>: A special case of condition join where the condition c contains only equalities</li>
+<li><strong>natural join</strong>: Equi-join on all common attributes， 去掉冗余列</li>
+</ul>
+</li>
+<li><p>Division</p>
+<ul>
+<li>A/B contains all x tuples such that for every <strong>y tuple</strong> in B, there is an (x,y) tuple in A</li>
+<li>Disqualified x values: π_x((π _x(A)×B)−A) </li>
+</ul>
+</li>
+<li><p>Outer Joins</p>
+<ul>
+<li>Left outer join(*⋈)，只保留左关系的所有元组</li>
+<li>Right outer join (⋈*)，只保留有关系的所有元组</li>
+<li>Full outer join (*⋈*)，左右两关系的所有元祖都保留</li>
+</ul>
+</li>
+<li><p>Outer Unions</p>
+<ul>
+<li>The extension of union operation. It can union two relations which are not <strong>union-compatible</strong></li>
+<li>符号查书，打不出来，∪下面加一横</li>
+<li>无法填的field为NULL</li>
+</ul>
+</li>
+<li><p>Relational Calculus</p>
+<ul>
+<li><p>Tuple relational calculus(TRC)</p>
+<p>Variables range over (i.e., get bound to) tuples.</p>
+<ul>
+<li><p>{ t[&lt;attribute list&gt;] | P(t)}</p>
+<p>t is called tuple variable</p>
+</li>
+<li><p>Answer includes all tuples t&lt;attribute list&gt; that make the formula P(t) be true</p>
+</li>
+</ul>
+</li>
+<li><p>Domain relational calculus(DRC)</p>
+<p>Variables range over domain elements (attribute values).</p>
+<ul>
+<li><p>x1,x2,…,xn,xn+1,…, xn+m are called domain  in</p>
+<p>{ &lt;x1,x2, …, xn&gt; | P(x1,x2,…,xn,xn+1,…, xn+m) }</p>
+</li>
+</ul>
+</li>
+<li><p>Unsafe queries, Expressive Power</p>
+<ul>
+<li><p>It is possible to write syntactically correct calculus queries that have an infinite number of answers! Such queries are called unsafe</p>
+<p>e.g., {S | ¬(S ∈Sailors)}</p>
+</li>
+<li><p>It is known that every query that can be expressed in relational algebra can be expressed as a safe query in DRC / TRC; the converse is also true</p>
+</li>
+</ul>
+</li>
+<li><p>Relational Completeness</p>
+<p><strong>{σ, π, ∪, −, ×}</strong> is a complete operation set. Relational calculus can express these five operations easily, so <strong>relational calculus is also Relational Completeness</strong>. </p>
+<p><strong>SQL language</strong> is based on relational calculus, so it can express any query that is expressible in relational algebra /calculus.</p>
+</li>
+</ul>
+</li>
+<li><p>Remarks to Traditional Data Model</p>
+<ul>
+<li><p>Traditional Data model</p>
+<p>Hierarchical, network and relational model</p>
+</li>
+<li><p>Based on record, can’t orient to users or applications better<br>Can’t express the relationships between entities in a natural mode.<br>Lack of semantic information<br>Few data type, hard to fulfill the requirements of applications</p>
+</li>
+</ul>
+</li>
+<li><p>ER Data Model</p>
+<ul>
+<li>Real-world object distinguishable from other objects. An entity is described (in DB) using a set of attributes.</li>
+<li><strong>Entity Set</strong>: A collection of similar entities. <strong>E.g., all employees</strong><ul>
+<li>Each entity set has a key.<br>Each attribute has a domain.<br>Permit combined or multi-valued attribute</li>
+</ul>
+</li>
+<li><strong>Relationship</strong>: Association among two or more entities. E.g., Attishoo works in Pharmacy department.<ul>
+<li>Relationship can have attributes</li>
+<li><strong>Relationship Set</strong>: Collection of similar relationships.</li>
+<li>An n-ary relationship set R relates n entity sets E1… En; each relationship in R involves entities e1, …, en<br>Same entity set could participate in different relationship sets, or in different “roles” in same set.</li>
+</ul>
+</li>
+<li>ER Diagram<ul>
+<li><img src="E:%5Ccourse%5C%E6%95%B0%E6%8D%AE%E5%BA%93%5Cpic%5C1.JPG" alt="1"></li>
+</ul>
+</li>
+<li>Cardinality Ratio Constraints<ul>
+<li>Relationships can be distinguished as 1:1, 1:N, and M:N. This is called <strong>cardinality ratio constraints</strong>.</li>
+</ul>
+</li>
+<li>Participation Constraints<ul>
+<li>We can further specify the <strong>minimal and max number</strong> an entity participates a relationship. This is called <strong>participation constraints</strong>.</li>
+<li>if min &gt; 0 –&gt; total partition</li>
+<li>if min = 0 –&gt; partial partition</li>
+<li><strong>Another example</strong>: in the selected course relationship between Students and Courses, if we specify every student must select at least 3 courses and at most 6 courses, the participating degree of Students is said to be (3,6).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Why relational data model has not been killed yet?</strong></p>
+<ul>
+<li>hierarchical model and network model–&gt; killed when young</li>
+<li>relational data model –&gt; used for a long time, hard to substitute</li>
+</ul>
+</li>
+</ul>
+<h2 id="User-Interfaces-and-SQL-Language"><a href="#User-Interfaces-and-SQL-Language" class="headerlink" title="User Interfaces and SQL Language"></a>User Interfaces and SQL Language</h2><p>  <strong>Query Languages</strong></p>
+<ul>
+<li>Formal Query Language</li>
+<li>Tabular Query Language</li>
+<li>Graphic Query Language</li>
+<li>Limited Natural Language Query Language</li>
+</ul>
+<p>  <strong>Relational Query Languages</strong></p>
+<p>  simple, powerful</p>
+<p>  Query Language: Allow manipulation and retrieval of data from a database</p>
+<p>  <strong>Formal Relational Query Languages</strong></p>
+<p>  implementation of:</p>
+<ul>
+<li><p>Relational Algebra</p>
+</li>
+<li><p>Relational Calculus</p>
+<p>The most successful relational database language — SQL</p>
+</li>
+</ul>
+<p>  <strong>SQL Language</strong></p>
+<p>  4 parts:</p>
+<ul>
+<li><strong>Data Definition Language(DDL)</strong>, used to <strong>define, delete, or alter data schema</strong></li>
+<li><strong>Query Language(QL)</strong>, used to <strong>retrieve data</strong></li>
+<li><strong>Data Manipulation Language(DML)</strong>, used to <strong>insert, delete or update data</strong></li>
+<li><strong>Data Control Language(DCL)</strong>, used to <strong>control user’s access authority</strong> to data</li>
+</ul>
+<p>  <strong>Conceptual Evaluation Strategy of Query</strong></p>
+<ul>
+<li>Compute the cross-product of the <em>relation-list</em></li>
+<li>Discard resulting tuples if they fail <em>qualifications</em></li>
+<li>Delete attributes that are not in <em>target-list</em></li>
+<li>If <em>DISTINCT</em> is specify, eliminate duplicate rows</li>
+</ul>
+<p><strong>Aggregate operators</strong></p>
+<p>group by</p>
+<p>having</p>
+<p>null</p>
+<p>CAST expression 类型转换</p>
+<p>CASE expression 类似switch</p>
+<p><strong>Sub-query</strong></p>
+<ul>
+<li>Scalar sub-query<ul>
+<li>The result of a sub-query is a single value.</li>
+</ul>
+</li>
+<li>Table Expression<ul>
+<li>The result of a sub-query is a table.</li>
+</ul>
+</li>
+<li>Common Table Expression<ul>
+<li>with -&gt; define a common table expression</li>
+</ul>
+</li>
+</ul>
+<p><strong>Outer Join</strong></p>
+<p>union</p>
+<p><strong>Recursion</strong></p>
+<p><img src="E:%5Ccourse%5C%E6%95%B0%E6%8D%AE%E5%BA%93%5Cpic%5C2.JPG" alt="2"></p>
+<p><strong>VIEW</strong></p>
+<p><strong>Database Management Systems</strong></p>
+<ul>
+<li></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/02/database-1/" data-id="ck3na9o230001sgvchriia2ts" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/learning/" rel="tag">learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/02/hello-world/" class="article-date">
+  <time datetime="2019-12-01T16:35:52.338Z" itemprop="datePublished">2019-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/02/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo server</span></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo generate</span></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/02/hello-world/" data-id="ck3na9o1y0000sgvc59lz0k66" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/learning/" rel="tag">learning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/learning/" style="font-size: 10px;">learning</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/02/database-1/">Database 前半学期复习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/02/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Vincent<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
