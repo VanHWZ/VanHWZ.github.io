@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Archive | Hexo</title>
+    <title>Leetcode-5 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -30,7 +30,7 @@
 
 
     <script>
-        window.isPost = false
+        window.isPost = true
         window.aomori = {
             
             
@@ -101,95 +101,121 @@
         <div class="main">
             <section class="inner">
                 <section class="inner-main">
-                    <section class="archives-cover"></section>
+                    <div class="post">
+    <article id="post-ckv3v7unv0000rowm1fbrd1ny" class="article article-type-post" itemscope
+    itemprop="blogPost">
 
+    <div class="article-inner">
 
-    
-    
-    
-    
-    <section class="archives-wrap">
-        <div class="archive-year-wrap">
-        <a href="/archives/2021" class="archive-year">2021</a>
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Leetcode-5
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-10-23T13:38:46.000Z" itemprop="datePublished">2021-10-23</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Leetcode/" rel="tag">Leetcode</a></li></ul>
+            </div>
+            
+
+            
+
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/23/Leetcode-5/">Leetcode-5</a>
-    </h1>
-  
 
-</article>
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="Zigzag-Conversion"><a href="#Zigzag-Conversion" class="headerlink" title="Zigzag Conversion"></a>Zigzag Conversion</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/zigzag-conversion/submissions/">Original page</a></p>
+<span id="more"></span>
 
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/23/Leetcode-4/">Leetcode-4</a>
-    </h1>
-  
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Initialize a list containing <code>numRows</code> empty string: <code>strings=[&quot;&quot;] * numRows</code>.</p>
+<p>Traverse the input string, compute character’s y coordinate in zigzag arrangement. Add that character to the end of <code>string[y]</code>.</p>
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def convert(self, s: str, numRows: int) -&gt; str:</span><br><span class="line">        if numRows == 1:</span><br><span class="line">            return s</span><br><span class="line">        y = 0</span><br><span class="line">        strings = [&quot;&quot; for _ in range(numRows)]</span><br><span class="line">        for idx, c in enumerate(s):</span><br><span class="line">            strings[y] += c</span><br><span class="line">            if idx % (2 * numRows - 2) &lt; numRows - 1:</span><br><span class="line">                y += 1</span><br><span class="line">            else:</span><br><span class="line">                y -= 1</span><br><span class="line"></span><br><span class="line">        return &quot;&quot;.join(strings)</span><br></pre></td></tr></table></figure>
 
-</article>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n)</p>
+<ul>
+<li>Traverse the string takes O(n) time</li>
+</ul>
+<p>Space: O(n)​</p>
+<ul>
+<li><code>strings</code> takes $O(n)$ space</li>
+</ul>
+
+        </div>
+
+    </div>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/17/Leetcode-3/">Leetcode-3</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/15/Leetcode-2/">Leetcode-2</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/11/Leetcode-1/">Leetcode-1</a>
-    </h1>
-  
-
-</article>
 
     
+
     
-    <article class="archive-article archive-type-post">
+
+    
+<nav class="article-nav">
   
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/11/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2021/10/23/Leetcode-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Leetcode-4</div>
+    </a>
   
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Leetcode-5 - Hexo&url=https://vanhwz.github.io/2021/10/23/Leetcode-5/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Leetcode-5 - Hexo&u=https://vanhwz.github.io/2021/10/23/Leetcode-5/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Leetcode-5 - Hexo&url=https://vanhwz.github.io/2021/10/23/Leetcode-5/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
 
 </article>
 
 
-    </div></section>
 
 
 
 
+
+
+
+
+
+
+</div>
                 </section>
             </section>
 
@@ -201,6 +227,12 @@
 <div class="widget" id="widget">
     
       
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
     
       
 
