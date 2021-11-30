@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Leetcode-6 | Hexo</title>
+    <title>Leetcode-8 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckve6b5hl0000ykwm151q3l4g" class="article article-type-post" itemscope
+    <article id="post-ckwlr5nkz0000j0ma1o7tdwvk" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -118,7 +118,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Leetcode-6
+      Leetcode-8
     </h1>
   
 
@@ -128,7 +128,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2021-10-30T18:51:24.000Z" itemprop="datePublished">2021-10-31</time>
+  <time datetime="2021-11-30T06:24:03.000Z" itemprop="datePublished">2021-11-30</time>
 </div>
 
             
@@ -144,26 +144,14 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="Reverse-Integer"><a href="#Reverse-Integer" class="headerlink" title="Reverse Integer"></a>Reverse Integer</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/reverse-integer/">Original page</a></p>
+            <h1 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/container-with-most-water/">Original page</a></p>
 <span id="more"></span>
 
-<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><ol>
-<li>Return 0 when the input $x=0$ or $x=-2^{31}$ </li>
-<li>Log the sign of x. Convert x to positive int</li>
-<li>Use python list as queue to enqueue the units digit of x. And update x with <code>x // 10</code>. Also log the number of digits of x in the process.</li>
-<li>If number of digits = 10, then check if the result goes outside the domain. Traverse the list and compare each digit to $2^{31}-1$ from lef to right. If result goes outside, then return 0.</li>
-<li>Dequeue the digits, add it to the units of the result and update result with <code>result * 10</code></li>
-</ol>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverse(self, x: int) -&gt; int:</span><br><span class="line">        if x == 0 or x == (-2147483648):</span><br><span class="line">            return 0</span><br><span class="line">        </span><br><span class="line">        max_int = &quot;2147483647&quot;</span><br><span class="line">        </span><br><span class="line">        minus = 1</span><br><span class="line">        if x &lt; 0:</span><br><span class="line">            minus = -1</span><br><span class="line">            x = -x</span><br><span class="line">        </span><br><span class="line">        queue = []</span><br><span class="line">        digits = 0</span><br><span class="line">        while x:</span><br><span class="line">            queue.append(x % 10)</span><br><span class="line">            x //= 10</span><br><span class="line">            digits += 1</span><br><span class="line">        </span><br><span class="line">        if digits == 10:</span><br><span class="line">            # check if go outside</span><br><span class="line">            for i in range(10):</span><br><span class="line">                if queue[i] &gt; int(max_int[i]):</span><br><span class="line">                    return 0</span><br><span class="line">                elif queue[i] &lt; int(max_int[i]):</span><br><span class="line">                    break</span><br><span class="line">                </span><br><span class="line">        result = 0</span><br><span class="line">        while queue:</span><br><span class="line">            result *= 10</span><br><span class="line">            result += queue.pop(0)</span><br><span class="line">        return minus * result</span><br></pre></td></tr></table></figure>
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>From problem description, we know one important rule. Given a container, if $a_{left} &lt; a_{right}$, then $area(a_{left}, a_{right}) &gt; area(a_{left}, a_{right-1})$. So we only need to move smaller $a$ to median in order to traverse all possible max area.</p>
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxArea(self, height: List[int]) -&gt; int:</span><br><span class="line">        max_area = 0</span><br><span class="line">        p_l = 0</span><br><span class="line">        p_r = len(height) - 1</span><br><span class="line">        </span><br><span class="line">        while p_r &gt; p_l:</span><br><span class="line">            area = (p_r - p_l) * min(height[p_l], height[p_r])</span><br><span class="line">            if area &gt; max_area:</span><br><span class="line">                max_area = area</span><br><span class="line">            if height[p_l] &lt; height[p_r]:</span><br><span class="line">                p_l += 1 </span><br><span class="line">            else:</span><br><span class="line">                p_r -= 1</span><br><span class="line">                </span><br><span class="line">        return max_area</span><br></pre></td></tr></table></figure>
 
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n)</p>
-<ul>
-<li>Need to traverse the list for 2 to 3 times.</li>
-</ul>
-<p>Space: O(n)​</p>
-<ul>
-<li>Space of the queue.</li>
-</ul>
+<p>Space: O(1)​</p>
 
         </div>
 
@@ -182,19 +170,10 @@
     
 <nav class="article-nav">
   
-    <a href="/2021/10/31/Leetcode-7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Leetcode-7
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/10/23/Leetcode-5/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/10/31/Leetcode-7/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">Leetcode-5</div>
+      <div class="article-nav-title">Leetcode-7</div>
     </a>
   
 </nav>
@@ -203,15 +182,15 @@
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Leetcode-6 - Hexo&url=https://vanhwz.github.io/2021/10/31/Leetcode-6/">
+            href="https://twitter.com/share?text=Leetcode-8 - Hexo&url=https://vanhwz.github.io/2021/11/30/Leetcode-8/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Leetcode-6 - Hexo&u=https://vanhwz.github.io/2021/10/31/Leetcode-6/">
+            href="https://www.facebook.com/sharer.php?title=Leetcode-8 - Hexo&u=https://vanhwz.github.io/2021/11/30/Leetcode-8/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Leetcode-6 - Hexo&url=https://vanhwz.github.io/2021/10/31/Leetcode-6/&pic=">
+            href="https://service.weibo.com/share/share.php?title=Leetcode-8 - Hexo&url=https://vanhwz.github.io/2021/11/30/Leetcode-8/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
