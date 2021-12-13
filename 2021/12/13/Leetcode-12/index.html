@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Leetcode-12 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1633679241878.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1633679241878.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Hexo</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-ckx4vqcqd0000xomacor8hx1k" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Leetcode-12
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-12-13T12:24:47.000Z" itemprop="datePublished">2021-12-13</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Leetcode-12-Letter-Combinations-of-a-Phone-Number/" rel="tag">Leetcode-12.Letter Combinations of a Phone Number</a></li></ul>
+            </div>
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="Letter-Combinations-of-a-Phone-Number"><a href="#Letter-Combinations-of-a-Phone-Number" class="headerlink" title="Letter Combinations of a Phone Number"></a>Letter Combinations of a Phone Number</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/">Original page</a></p>
+<span id="more"></span>
+
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><ol>
+<li><p>Backtracking.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backtrack</span>(<span class="params">self, digits, res, cur, letters</span>):</span></span><br><span class="line">        <span class="keyword">if</span> cur == <span class="built_in">len</span>(digits):</span><br><span class="line">            res.append(letters)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">for</span> char <span class="keyword">in</span> self.d_to_l[digits[cur]]:</span><br><span class="line">                self.backtrack(digits, res, cur+<span class="number">1</span>, letters+char)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span>(<span class="params">self, digits: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        self.d_to_l = &#123;</span><br><span class="line">            <span class="string">&#x27;2&#x27;</span>: <span class="string">&quot;abc&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;3&#x27;</span>: <span class="string">&quot;def&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;4&#x27;</span>: <span class="string">&quot;ghi&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;5&#x27;</span>: <span class="string">&quot;jkl&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;6&#x27;</span>: <span class="string">&quot;mno&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;7&#x27;</span>: <span class="string">&quot;pqrs&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;8&#x27;</span>: <span class="string">&quot;tuv&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;9&#x27;</span>: <span class="string">&quot;wxyz&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> digits:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        self.backtrack(digits, res, <span class="number">0</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
+<li><p>Iteration based on backtracking.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span>    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span>(<span class="params">self, digits: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        self.d_to_l = &#123;</span><br><span class="line">            <span class="string">&#x27;2&#x27;</span>: <span class="string">&quot;abc&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;3&#x27;</span>: <span class="string">&quot;def&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;4&#x27;</span>: <span class="string">&quot;ghi&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;5&#x27;</span>: <span class="string">&quot;jkl&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;6&#x27;</span>: <span class="string">&quot;mno&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;7&#x27;</span>: <span class="string">&quot;pqrs&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;8&#x27;</span>: <span class="string">&quot;tuv&quot;</span>,</span><br><span class="line">            <span class="string">&#x27;9&#x27;</span>: <span class="string">&quot;wxyz&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> digits:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        </span><br><span class="line">        p = [<span class="number">0</span>] * <span class="built_in">len</span>(digits)  <span class="comment"># pointers</span></span><br><span class="line">        i = <span class="number">0</span>  <span class="comment"># current processing i-th letter</span></span><br><span class="line">        letters = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> p[<span class="number">0</span>] == <span class="built_in">len</span>(self.d_to_l[digits[<span class="number">0</span>]]):</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> i == <span class="built_in">len</span>(digits):  <span class="comment"># end case</span></span><br><span class="line">                res.append(letters)</span><br><span class="line">                letters = letters[:-<span class="number">1</span>]</span><br><span class="line">                i -= <span class="number">1</span></span><br><span class="line">                p[i] += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:  <span class="comment"># DFS base case</span></span><br><span class="line">                letters += self.d_to_l[digits[i]][p[i]]</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># backtrack</span></span><br><span class="line">            <span class="keyword">if</span> p[-<span class="number">1</span>] == <span class="built_in">len</span>(self.d_to_l[digits[-<span class="number">1</span>]]):</span><br><span class="line">                temp_i = i</span><br><span class="line">                <span class="keyword">while</span> temp_i &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">if</span> p[temp_i] == <span class="built_in">len</span>(self.d_to_l[digits[i]]):</span><br><span class="line">                        p[temp_i] = <span class="number">0</span></span><br><span class="line">                        p[temp_i - <span class="number">1</span>] += <span class="number">1</span></span><br><span class="line">                        letters = letters[:-<span class="number">1</span>]</span><br><span class="line">                        i -= <span class="number">1</span></span><br><span class="line">                    temp_i -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Essentially, this is a tree traversal task or a DFS task. </p>
+<p>I tried to modify the backtracking code into iteration version. Identifying base case and end case is the most important.</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2021/12/13/Leetcode-11/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Leetcode-11</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Leetcode-12 - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-12/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Leetcode-12 - Hexo&u=https://vanhwz.github.io/2021/12/13/Leetcode-12/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Leetcode-12 - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-12/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leetcode/" rel="tag">Leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leetcode-10-3-Sum/" rel="tag">Leetcode-10.3 Sum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leetcode-11-3-Sum-Closest/" rel="tag">Leetcode-11.3 Sum Closest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leetcode-12-Letter-Combinations-of-a-Phone-Number/" rel="tag">Leetcode-12.Letter Combinations of a Phone Number</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2021/12/13/Leetcode-12/">Leetcode-12</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/13/Leetcode-11/">Leetcode-11</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/13/Leetcode-10/">Leetcode-10</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/30/Leetcode-9/">Leetcode-9</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/30/Leetcode-8/">Leetcode-8</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2021<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1633679241878.js"></script>
+
+
+<script src="/dist/custom.js?1633679241878.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
