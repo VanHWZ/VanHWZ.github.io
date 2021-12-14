@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Leetcode-3 Sum Closest | Hexo</title>
+    <title>Leetcode-Remove Nth Node From End of List | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckx4h8avv00018kma51p67mr1" class="article article-type-post" itemscope
+    <article id="post-ckx6civve0000w0maec25015s" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -118,7 +118,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Leetcode-3 Sum Closest
+      Leetcode-Remove Nth Node From End of List
     </h1>
   
 
@@ -128,7 +128,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2021-12-13T09:24:49.000Z" itemprop="datePublished">2021-12-13</time>
+  <time datetime="2021-12-14T16:48:40.000Z" itemprop="datePublished">2021-12-15</time>
 </div>
 
             
@@ -144,16 +144,29 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="3-Sum-Closest"><a href="#3-Sum-Closest" class="headerlink" title="3 Sum Closest"></a>3 Sum Closest</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/3sum-closest/">Original page</a></p>
+            <h1 id="Remove-Nth-Node-From-End-of-List"><a href="#Remove-Nth-Node-From-End-of-List" class="headerlink" title="Remove Nth Node From End of List"></a>Remove Nth Node From End of List</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">Original page</a></p>
 <span id="more"></span>
 
-<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Fix 1st element. Use two pointers to find the other two elements to achieve closest sum.</p>
-<h3 id="Python-Code"><a href="#Python-Code" class="headerlink" title="Python Code"></a>Python Code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSumClosest(self, nums: List[int], target: int) -&gt; int:</span><br><span class="line">        output = sum(nums[:3])</span><br><span class="line">        d = target - output if target &gt; output else output - target</span><br><span class="line">        nums = sorted(nums)</span><br><span class="line">        length = len(nums)</span><br><span class="line">        for i, n in enumerate(nums):</span><br><span class="line">            j = i + 1</span><br><span class="line">            k = length - 1</span><br><span class="line">            while j&lt;k:</span><br><span class="line">                s = n+nums[j]+nums[k]</span><br><span class="line">                d_ = target - s if target &gt; s else s - target</span><br><span class="line">                if d_ &lt; d:</span><br><span class="line">                    output = s</span><br><span class="line">                    d = d_</span><br><span class="line">                if s &gt; target:</span><br><span class="line">                    k -= 1</span><br><span class="line">                elif s &lt; target:</span><br><span class="line">                    j += 1</span><br><span class="line">                else:</span><br><span class="line">                    return s</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><ol>
+<li>Make a node list. Delete the n-th node directly.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.</span><br><span class="line"># class ListNode:</span><br><span class="line">#     def __init__(self, val=0, next=None):</span><br><span class="line">#         self.val = val</span><br><span class="line">#         self.next = next</span><br><span class="line">class Solution:</span><br><span class="line">    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:</span><br><span class="line">        nodes = []</span><br><span class="line">        p = head</span><br><span class="line">        while p:</span><br><span class="line">            nodes.append(p)</span><br><span class="line">            p = p.next</span><br><span class="line">        if nodes[-n] == nodes[0]:</span><br><span class="line">            head = head.next</span><br><span class="line">        elif n == 1:</span><br><span class="line">            nodes[-2].next = None</span><br><span class="line">        else:</span><br><span class="line">            prev = nodes[-n-1]</span><br><span class="line">            prev.next = nodes[-n+1]</span><br><span class="line">        return head</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n^2).</p>
-<p>Space: O(1)</p>
+<ol start="2">
+<li>Use two pointers. One pointer is <code>n</code> positions ahead of the other. Once the front pointer reach the end, delete the node of the former pointer.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.</span><br><span class="line"># class ListNode:</span><br><span class="line">#     def __init__(self, val=0, next=None):</span><br><span class="line">#         self.val = val</span><br><span class="line">#         self.next = next</span><br><span class="line">class Solution:</span><br><span class="line">    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:</span><br><span class="line">        p1 = p2 = head</span><br><span class="line">        while n &gt; 0:</span><br><span class="line">            p2 = p2.next</span><br><span class="line">            n -= 1</span><br><span class="line">        while p2 and p2.next:</span><br><span class="line">            p1 = p1.next</span><br><span class="line">            p2 = p2.next</span><br><span class="line">        if not p2:</span><br><span class="line">            head = head.next</span><br><span class="line">        else:</span><br><span class="line">            p1.next = p1.next.next</span><br><span class="line">        return head</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: Both are O(n). </p>
+<p>Space: </p>
+<ul>
+<li>O(n) to store all nodes</li>
+<li>O(1)</li>
+</ul>
 
         </div>
 
@@ -172,19 +185,10 @@
     
 <nav class="article-nav">
   
-    <a href="/2021/12/13/Leetcode-12/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Leetcode-Letter Combinations of a Phone Number
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/12/13/Leetcode-10/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/12/15/Leetcode-13/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">Leetcode-3 Sum</div>
+      <div class="article-nav-title">Leetcode-4 Sum</div>
     </a>
   
 </nav>
@@ -193,15 +197,15 @@
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Leetcode-3 Sum Closest - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-11/">
+            href="https://twitter.com/share?text=Leetcode-Remove Nth Node From End of List - Hexo&url=https://vanhwz.github.io/2021/12/15/Leetcode-14/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Leetcode-3 Sum Closest - Hexo&u=https://vanhwz.github.io/2021/12/13/Leetcode-11/">
+            href="https://www.facebook.com/sharer.php?title=Leetcode-Remove Nth Node From End of List - Hexo&u=https://vanhwz.github.io/2021/12/15/Leetcode-14/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Leetcode-3 Sum Closest - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-11/&pic=">
+            href="https://service.weibo.com/share/share.php?title=Leetcode-Remove Nth Node From End of List - Hexo&url=https://vanhwz.github.io/2021/12/15/Leetcode-14/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
