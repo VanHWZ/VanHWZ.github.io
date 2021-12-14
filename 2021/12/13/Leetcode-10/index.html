@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Leetcode-10 | Hexo</title>
+    <title>Leetcode-3 Sum | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -118,7 +118,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Leetcode-10
+      Leetcode-3 Sum
     </h1>
   
 
@@ -148,9 +148,9 @@
 <span id="more"></span>
 
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><ol>
-<li><p>Regard each element in <code>nums</code> as <code>nums[i]</code>，use <a href="https://vanhwz.github.io/2021/10/11/Leetcode-1/">Two Sum</a> solution for the rest part.</p>
+<li><p>Fix <code>nums[i]</code>，use <a href="https://vanhwz.github.io/2021/10/11/Leetcode-1/">Two Sum</a> solution for the rest part.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length = len(nums)</span><br><span class="line">        if length &lt; 3:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        out = []</span><br><span class="line">        </span><br><span class="line">        for i in range(length-2):</span><br><span class="line">            remain = -nums[i]</span><br><span class="line">            temp = &#123;&#125;</span><br><span class="line">            for j in range(i+1, length):</span><br><span class="line">                temp[remain-nums[j]] = j</span><br><span class="line">            for j in range(i+1, length):</span><br><span class="line">                if nums[j] in temp and temp[nums[j]] != j:</span><br><span class="line">                    r = sorted([nums[i], nums[j], nums[temp[nums[j]]]])</span><br><span class="line">                    if r not in out:</span><br><span class="line">                        out.append(r)</span><br><span class="line">        return out</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>Sort <code>nums</code> first. use two pointers to find the two sum for each <code>nums[i]</code>.</p>
+<li><p>Sort <code>nums</code> first. Use two pointers to find the two sum for each <code>nums[i]</code>.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length = len(nums)</span><br><span class="line">        if length &lt; 3:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        nums = sorted(nums)</span><br><span class="line">        out = set()</span><br><span class="line">        </span><br><span class="line">        for i, n in enumerate(nums):</span><br><span class="line">            j = i+1</span><br><span class="line">            k = length-1</span><br><span class="line">            while n&lt;=0 and j&lt;k:</span><br><span class="line">                s = n+nums[j]+nums[k]</span><br><span class="line">                if s &lt; 0:</span><br><span class="line">                    j += 1</span><br><span class="line">                elif s &gt; 0:</span><br><span class="line">                    k -= 1</span><br><span class="line">                else:</span><br><span class="line">                    out.add((n, nums[j], nums[k]))</span><br><span class="line">                    j += 1</span><br><span class="line">        result = []</span><br><span class="line">        for t in out:</span><br><span class="line">            result.append(list(t))</span><br><span class="line">        return result</span><br></pre></td></tr></table></figure></li>
 <li><p>Use same idea as 2nd solution. But try to remove repetition check.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length = len(nums)</span><br><span class="line">        if length &lt; 3:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        nums = sorted(nums)</span><br><span class="line">        out = []</span><br><span class="line">        </span><br><span class="line">        for i, n in enumerate(nums):</span><br><span class="line">            if i&gt;0 and n == nums[i-1]:</span><br><span class="line">                continue</span><br><span class="line">            j = i+1</span><br><span class="line">            k = length-1</span><br><span class="line">            while n&lt;=0 and j&lt;k:</span><br><span class="line">                s = n+nums[j]+nums[k]</span><br><span class="line">                if s &lt; 0:</span><br><span class="line">                    j += 1</span><br><span class="line">                elif s &gt; 0:</span><br><span class="line">                    k -= 1</span><br><span class="line">                else:</span><br><span class="line">                    out.append([n, nums[j], nums[k]])</span><br><span class="line">                    j += 1</span><br><span class="line">                    k -= 1</span><br><span class="line">                    while j&lt;k and nums[j] == nums[j-1]:</span><br><span class="line">                        j += 1</span><br><span class="line">        return out          </span><br></pre></td></tr></table></figure></li>
@@ -179,7 +179,7 @@
       <div class="article-nav-caption">下一篇</div>
       <div class="article-nav-title">
         
-          Leetcode-11
+          Leetcode-3 Sum Closest
         
       </div>
     </a>
@@ -187,7 +187,7 @@
   
     <a href="/2021/11/30/Leetcode-9/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">Leetcode-9</div>
+      <div class="article-nav-title">Leetcode-Integer to Roman</div>
     </a>
   
 </nav>
@@ -196,15 +196,15 @@
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Leetcode-10 - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-10/">
+            href="https://twitter.com/share?text=Leetcode-3 Sum - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-10/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Leetcode-10 - Hexo&u=https://vanhwz.github.io/2021/12/13/Leetcode-10/">
+            href="https://www.facebook.com/sharer.php?title=Leetcode-3 Sum - Hexo&u=https://vanhwz.github.io/2021/12/13/Leetcode-10/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Leetcode-10 - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-10/&pic=">
+            href="https://service.weibo.com/share/share.php?title=Leetcode-3 Sum - Hexo&url=https://vanhwz.github.io/2021/12/13/Leetcode-10/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
@@ -261,23 +261,23 @@
       <ul>
         
           <li>
-            <a href="/2021/12/13/Leetcode-12/">Leetcode-12</a>
+            <a href="/2021/12/15/Leetcode-13/">Leetcode-4 Sum</a>
           </li>
         
           <li>
-            <a href="/2021/12/13/Leetcode-11/">Leetcode-11</a>
+            <a href="/2021/12/13/Leetcode-12/">Leetcode-Letter Combinations of a Phone Number</a>
           </li>
         
           <li>
-            <a href="/2021/12/13/Leetcode-10/">Leetcode-10</a>
+            <a href="/2021/12/13/Leetcode-11/">Leetcode-3 Sum Closest</a>
           </li>
         
           <li>
-            <a href="/2021/11/30/Leetcode-9/">Leetcode-9</a>
+            <a href="/2021/12/13/Leetcode-10/">Leetcode-3 Sum</a>
           </li>
         
           <li>
-            <a href="/2021/11/30/Leetcode-8/">Leetcode-8</a>
+            <a href="/2021/11/30/Leetcode-9/">Leetcode-Integer to Roman</a>
           </li>
         
       </ul>
