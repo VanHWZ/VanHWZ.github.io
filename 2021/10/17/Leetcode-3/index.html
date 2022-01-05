@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckuv200gj00005owmhyn72h2m" class="article article-type-post" itemscope
+    <article id="post-cky123tmq000ntcmagpy9g95j" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -151,8 +151,19 @@
 <h4 id="Edition1"><a href="#Edition1" class="headerlink" title="Edition1"></a>Edition1</h4><p>Use dictionary to log the index of the character. Maintain variables <code>max_l</code> and <code>cur_l</code> and update them when traversing the string. When encountering repeating char, move current index to 1 plus that char’s index.</p>
 <p>O(nm). m is the length of the substring.</p>
 <h4 id="Edition2"><a href="#Edition2" class="headerlink" title="Edition2"></a>Edition2</h4><p> Use dictionary to log the index of the character. Only maintain <code>max_l</code>. Use <code>start</code> to indicate the start point of substring and update <code>max_l</code> by computing the distance between <code>start</code> and current <code>index</code>. When encountering repeating char (which lies in the interval of [<code>start</code>, current <code>index</code>]), update <code>start</code> as the next index of the previous char, i.e., <code>start=location[s[idx]]</code>.</p>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def lengthOfLongestSubstring(self, s: str) -&gt; int:</span><br><span class="line">        max_l = 0</span><br><span class="line">        start = 0</span><br><span class="line">        location = &#123;&#125;</span><br><span class="line">        for idx in range(len(s)):</span><br><span class="line">            if s[idx] in location and start &lt;= location[s[idx]]:</span><br><span class="line">                start = location[s[idx]] + 1</span><br><span class="line">            else:</span><br><span class="line">                max_l = max(max_l, idx - start + 1)</span><br><span class="line">            location[s[idx]] = idx</span><br><span class="line">        return max_l</span><br></pre></td></tr></table></figure>
-
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s: str) -&gt; int:
+        max_l = 0
+        start = 0
+        location = &#123;&#125;
+        for idx in range(len(s)):
+            if s[idx] in location and start &lt;= location[s[idx]]:
+                start = location[s[idx]] + 1
+            else:
+                max_l = max(max_l, idx - start + 1)
+            location[s[idx]] = idx
+        return max_l
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n). Traversing the string needs O(n) time.</p>
 <p>Space: O(n). Dictionary takes O(n) space.</p>
 

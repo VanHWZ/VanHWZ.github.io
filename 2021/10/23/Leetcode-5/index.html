@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckv3v7unv0000rowm1fbrd1ny" class="article article-type-post" itemscope
+    <article id="post-cky123tmu000ttcma3877fn7d" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -149,8 +149,21 @@
 
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Initialize a list containing <code>numRows</code> empty string: <code>strings=[&quot;&quot;] * numRows</code>.</p>
 <p>Traverse the input string, compute character’s y coordinate in zigzag arrangement. Add that character to the end of <code>string[y]</code>.</p>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def convert(self, s: str, numRows: int) -&gt; str:</span><br><span class="line">        if numRows == 1:</span><br><span class="line">            return s</span><br><span class="line">        y = 0</span><br><span class="line">        strings = [&quot;&quot; for _ in range(numRows)]</span><br><span class="line">        for idx, c in enumerate(s):</span><br><span class="line">            strings[y] += c</span><br><span class="line">            if idx % (2 * numRows - 2) &lt; numRows - 1:</span><br><span class="line">                y += 1</span><br><span class="line">            else:</span><br><span class="line">                y -= 1</span><br><span class="line"></span><br><span class="line">        return &quot;&quot;.join(strings)</span><br></pre></td></tr></table></figure>
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code>class Solution:
+    def convert(self, s: str, numRows: int) -&gt; str:
+        if numRows == 1:
+            return s
+        y = 0
+        strings = [&quot;&quot; for _ in range(numRows)]
+        for idx, c in enumerate(s):
+            strings[y] += c
+            if idx % (2 * numRows - 2) &lt; numRows - 1:
+                y += 1
+            else:
+                y -= 1
 
+        return &quot;&quot;.join(strings)
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n)</p>
 <ul>
 <li>Traverse the string takes O(n) time</li>

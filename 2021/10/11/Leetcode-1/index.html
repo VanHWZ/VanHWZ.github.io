@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckumti4wu0000wcwmbbhb154j" class="article article-type-post" itemscope
+    <article id="post-cky123tlo0001tcmae9cg3w22" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -151,8 +151,16 @@
 <li>Traverse the list and store the index with <code>key=target-current_num</code>if current number is not one of the keys of the dict.</li>
 <li>When current number is one of the keys, then we return result <code>[idx, dic[current_num]]</code>.</li>
 </ol>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        nums_inv = &#123;&#125;</span><br><span class="line">        for idx, num in enumerate(nums):</span><br><span class="line">            if num not in nums_inv:</span><br><span class="line">                nums_inv[target-num] = idx</span><br><span class="line">            else:</span><br><span class="line">                return [nums_inv[num], idx]</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
-
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code>class Solution:
+    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:
+        nums_inv = &#123;&#125;
+        for idx, num in enumerate(nums):
+            if num not in nums_inv:
+                nums_inv[target-num] = idx
+            else:
+                return [nums_inv[num], idx]
+            
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n). Since we traverse the list once. The amortized cost of reading the dict is O(1)</p>
 <p>Space: O(n). Each number is stored in a dict.</p>
 

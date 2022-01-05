@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckx6bbo6n00006omad0e39kk0" class="article article-type-post" itemscope
+    <article id="post-cky123tmh000etcmafkht1mws" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -148,10 +148,37 @@
 <span id="more"></span>
 
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Based on 2 Sum pointer solution, fix 2 elements each time. Use 2 ponters to find quadruplet with sum equals to <code>target</code>.</p>
-<h3 id="Python-Code"><a href="#Python-Code" class="headerlink" title="Python Code"></a>Python Code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def fourSum(self, nums: List[int], target: int) -&gt; List[List[int]]:</span><br><span class="line">        out = []</span><br><span class="line">        nums = sorted(nums)</span><br><span class="line">        i = 0</span><br><span class="line">        while i &lt; len(nums) - 3:</span><br><span class="line">            j = i + 1</span><br><span class="line">            while j &lt; len(nums)-2:</span><br><span class="line">                left = j + 1</span><br><span class="line">                right = len(nums) - 1</span><br><span class="line"></span><br><span class="line">                while left &lt; right:</span><br><span class="line">                    s = nums[i] + nums[j] + nums[left] + nums[right]</span><br><span class="line">                    if s &lt; target:</span><br><span class="line">                        left += 1</span><br><span class="line">                    elif s &gt; target:</span><br><span class="line">                        right -= 1</span><br><span class="line">                    else:</span><br><span class="line">                        out.append([nums[i], nums[j], nums[left], nums[right]])</span><br><span class="line">                        left += 1</span><br><span class="line">                        while left &lt; right and nums[left] == nums[left-1]:</span><br><span class="line">                            left += 1</span><br><span class="line">                j += 1</span><br><span class="line">                while j &lt; len(nums) - 2 and nums[j] == nums[j-1]:</span><br><span class="line">                    j += 1</span><br><span class="line">            i += 1</span><br><span class="line">            while i &lt; len(nums) - 3 and nums[i] == nums[i-1]:</span><br><span class="line">                i += 1</span><br><span class="line">                            </span><br><span class="line">        return out</span><br></pre></td></tr></table></figure>
+<h3 id="Python-Code"><a href="#Python-Code" class="headerlink" title="Python Code"></a>Python Code</h3><pre><code>class Solution:
+    def fourSum(self, nums: List[int], target: int) -&gt; List[List[int]]:
+        out = []
+        nums = sorted(nums)
+        i = 0
+        while i &lt; len(nums) - 3:
+            j = i + 1
+            while j &lt; len(nums)-2:
+                left = j + 1
+                right = len(nums) - 1
 
-
-
+                while left &lt; right:
+                    s = nums[i] + nums[j] + nums[left] + nums[right]
+                    if s &lt; target:
+                        left += 1
+                    elif s &gt; target:
+                        right -= 1
+                    else:
+                        out.append([nums[i], nums[j], nums[left], nums[right]])
+                        left += 1
+                        while left &lt; right and nums[left] == nums[left-1]:
+                            left += 1
+                j += 1
+                while j &lt; len(nums) - 2 and nums[j] == nums[j-1]:
+                    j += 1
+            i += 1
+            while i &lt; len(nums) - 3 and nums[i] == nums[i-1]:
+                i += 1
+                            
+        return out
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n^3)</p>
 <p>Space: The maximum space needed is $n \choose 4$, i.e., O(n^4)</p>
 

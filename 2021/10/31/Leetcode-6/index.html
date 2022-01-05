@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckve6b5hl0000ykwm151q3l4g" class="article article-type-post" itemscope
+    <article id="post-cky123tmr000ptcmadvbmba4q" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -154,8 +154,39 @@
 <li>If number of digits = 10, then check if the result goes outside the domain. Traverse the list and compare each digit to $2^{31}-1$ from lef to right. If result goes outside, then return 0.</li>
 <li>Dequeue the digits, add it to the units of the result and update result with <code>result * 10</code></li>
 </ol>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverse(self, x: int) -&gt; int:</span><br><span class="line">        if x == 0 or x == (-2147483648):</span><br><span class="line">            return 0</span><br><span class="line">        </span><br><span class="line">        max_int = &quot;2147483647&quot;</span><br><span class="line">        </span><br><span class="line">        minus = 1</span><br><span class="line">        if x &lt; 0:</span><br><span class="line">            minus = -1</span><br><span class="line">            x = -x</span><br><span class="line">        </span><br><span class="line">        queue = []</span><br><span class="line">        digits = 0</span><br><span class="line">        while x:</span><br><span class="line">            queue.append(x % 10)</span><br><span class="line">            x //= 10</span><br><span class="line">            digits += 1</span><br><span class="line">        </span><br><span class="line">        if digits == 10:</span><br><span class="line">            # check if go outside</span><br><span class="line">            for i in range(10):</span><br><span class="line">                if queue[i] &gt; int(max_int[i]):</span><br><span class="line">                    return 0</span><br><span class="line">                elif queue[i] &lt; int(max_int[i]):</span><br><span class="line">                    break</span><br><span class="line">                </span><br><span class="line">        result = 0</span><br><span class="line">        while queue:</span><br><span class="line">            result *= 10</span><br><span class="line">            result += queue.pop(0)</span><br><span class="line">        return minus * result</span><br></pre></td></tr></table></figure>
-
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code>class Solution:
+    def reverse(self, x: int) -&gt; int:
+        if x == 0 or x == (-2147483648):
+            return 0
+        
+        max_int = &quot;2147483647&quot;
+        
+        minus = 1
+        if x &lt; 0:
+            minus = -1
+            x = -x
+        
+        queue = []
+        digits = 0
+        while x:
+            queue.append(x % 10)
+            x //= 10
+            digits += 1
+        
+        if digits == 10:
+            # check if go outside
+            for i in range(10):
+                if queue[i] &gt; int(max_int[i]):
+                    return 0
+                elif queue[i] &lt; int(max_int[i]):
+                    break
+                
+        result = 0
+        while queue:
+            result *= 10
+            result += queue.pop(0)
+        return minus * result
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n)</p>
 <ul>
 <li>Need to traverse the list for 2 to 3 times.</li>

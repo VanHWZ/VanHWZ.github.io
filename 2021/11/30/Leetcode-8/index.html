@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwlr5nkz0000j0ma1o7tdwvk" class="article article-type-post" itemscope
+    <article id="post-cky123tmx000xtcma5ccmchfl" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -148,8 +148,23 @@
 <span id="more"></span>
 
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>From problem description, we know one important rule. Given a container, if $a_{left} &lt; a_{right}$, then $area(a_{left}, a_{right}) &gt; area(a_{left}, a_{right-1})$. So we only need to move smaller $a$ to median in order to traverse all possible max area.</p>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxArea(self, height: List[int]) -&gt; int:</span><br><span class="line">        max_area = 0</span><br><span class="line">        p_l = 0</span><br><span class="line">        p_r = len(height) - 1</span><br><span class="line">        </span><br><span class="line">        while p_r &gt; p_l:</span><br><span class="line">            area = (p_r - p_l) * min(height[p_l], height[p_r])</span><br><span class="line">            if area &gt; max_area:</span><br><span class="line">                max_area = area</span><br><span class="line">            if height[p_l] &lt; height[p_r]:</span><br><span class="line">                p_l += 1 </span><br><span class="line">            else:</span><br><span class="line">                p_r -= 1</span><br><span class="line">                </span><br><span class="line">        return max_area</span><br></pre></td></tr></table></figure>
-
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code>class Solution:
+    def maxArea(self, height: List[int]) -&gt; int:
+        max_area = 0
+        p_l = 0
+        p_r = len(height) - 1
+        
+        while p_r &gt; p_l:
+            area = (p_r - p_l) * min(height[p_l], height[p_r])
+            if area &gt; max_area:
+                max_area = area
+            if height[p_l] &lt; height[p_r]:
+                p_l += 1 
+            else:
+                p_r -= 1
+                
+        return max_area
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n)</p>
 <p>Space: O(1)​</p>
 

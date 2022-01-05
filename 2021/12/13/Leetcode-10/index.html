@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckx4ewnuq0000ecma8bn6axfd" class="article article-type-post" itemscope
+    <article id="post-cky123tle0000tcma8i0f7cbj" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -149,11 +149,85 @@
 
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><ol>
 <li><p>Fix <code>nums[i]</code>，use <a href="https://vanhwz.github.io/2021/10/11/Leetcode-1/">Two Sum</a> solution for the rest part.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length = len(nums)</span><br><span class="line">        if length &lt; 3:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        out = []</span><br><span class="line">        </span><br><span class="line">        for i in range(length-2):</span><br><span class="line">            remain = -nums[i]</span><br><span class="line">            temp = &#123;&#125;</span><br><span class="line">            for j in range(i+1, length):</span><br><span class="line">                temp[remain-nums[j]] = j</span><br><span class="line">            for j in range(i+1, length):</span><br><span class="line">                if nums[j] in temp and temp[nums[j]] != j:</span><br><span class="line">                    r = sorted([nums[i], nums[j], nums[temp[nums[j]]]])</span><br><span class="line">                    if r not in out:</span><br><span class="line">                        out.append(r)</span><br><span class="line">        return out</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<pre><code>class Solution:
+    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:
+        length = len(nums)
+        if length &lt; 3:
+            return []
+        
+        out = []
+        
+        for i in range(length-2):
+            remain = -nums[i]
+            temp = &#123;&#125;
+            for j in range(i+1, length):
+                temp[remain-nums[j]] = j
+            for j in range(i+1, length):
+                if nums[j] in temp and temp[nums[j]] != j:
+                    r = sorted([nums[i], nums[j], nums[temp[nums[j]]]])
+                    if r not in out:
+                        out.append(r)
+        return out
+</code></pre>
+</li>
 <li><p>Sort <code>nums</code> first. Use two pointers to find the two sum for each <code>nums[i]</code>.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length = len(nums)</span><br><span class="line">        if length &lt; 3:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        nums = sorted(nums)</span><br><span class="line">        out = set()</span><br><span class="line">        </span><br><span class="line">        for i, n in enumerate(nums):</span><br><span class="line">            j = i+1</span><br><span class="line">            k = length-1</span><br><span class="line">            while n&lt;=0 and j&lt;k:</span><br><span class="line">                s = n+nums[j]+nums[k]</span><br><span class="line">                if s &lt; 0:</span><br><span class="line">                    j += 1</span><br><span class="line">                elif s &gt; 0:</span><br><span class="line">                    k -= 1</span><br><span class="line">                else:</span><br><span class="line">                    out.add((n, nums[j], nums[k]))</span><br><span class="line">                    j += 1</span><br><span class="line">        result = []</span><br><span class="line">        for t in out:</span><br><span class="line">            result.append(list(t))</span><br><span class="line">        return result</span><br></pre></td></tr></table></figure></li>
+<pre><code>class Solution:
+    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:
+        length = len(nums)
+        if length &lt; 3:
+            return []
+        
+        nums = sorted(nums)
+        out = set()
+        
+        for i, n in enumerate(nums):
+            j = i+1
+            k = length-1
+            while n&lt;=0 and j&lt;k:
+                s = n+nums[j]+nums[k]
+                if s &lt; 0:
+                    j += 1
+                elif s &gt; 0:
+                    k -= 1
+                else:
+                    out.add((n, nums[j], nums[k]))
+                    j += 1
+        result = []
+        for t in out:
+            result.append(list(t))
+        return result
+</code></pre>
+</li>
 <li><p>Use same idea as 2nd solution. But try to remove repetition check.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length = len(nums)</span><br><span class="line">        if length &lt; 3:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        nums = sorted(nums)</span><br><span class="line">        out = []</span><br><span class="line">        </span><br><span class="line">        for i, n in enumerate(nums):</span><br><span class="line">            if i&gt;0 and n == nums[i-1]:</span><br><span class="line">                continue</span><br><span class="line">            j = i+1</span><br><span class="line">            k = length-1</span><br><span class="line">            while n&lt;=0 and j&lt;k:</span><br><span class="line">                s = n+nums[j]+nums[k]</span><br><span class="line">                if s &lt; 0:</span><br><span class="line">                    j += 1</span><br><span class="line">                elif s &gt; 0:</span><br><span class="line">                    k -= 1</span><br><span class="line">                else:</span><br><span class="line">                    out.append([n, nums[j], nums[k]])</span><br><span class="line">                    j += 1</span><br><span class="line">                    k -= 1</span><br><span class="line">                    while j&lt;k and nums[j] == nums[j-1]:</span><br><span class="line">                        j += 1</span><br><span class="line">        return out          </span><br></pre></td></tr></table></figure></li>
+<pre><code>class Solution:
+    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:
+        length = len(nums)
+        if length &lt; 3:
+            return []
+        
+        nums = sorted(nums)
+        out = []
+        
+        for i, n in enumerate(nums):
+            if i&gt;0 and n == nums[i-1]:
+                continue
+            j = i+1
+            k = length-1
+            while n&lt;=0 and j&lt;k:
+                s = n+nums[j]+nums[k]
+                if s &lt; 0:
+                    j += 1
+                elif s &gt; 0:
+                    k -= 1
+                else:
+                    out.append([n, nums[j], nums[k]])
+                    j += 1
+                    k -= 1
+                    while j&lt;k and nums[j] == nums[j-1]:
+                        j += 1
+        return out          
+</code></pre>
+</li>
 </ol>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n^2).</p>
 <p>Space: O(n) to store the result.​</p>

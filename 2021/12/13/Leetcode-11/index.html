@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckx4h8avv00018kma51p67mr1" class="article article-type-post" itemscope
+    <article id="post-cky123tlx0005tcma94nub19e" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -148,10 +148,29 @@
 <span id="more"></span>
 
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Fix 1st element. Use two pointers to find the other two elements to achieve closest sum.</p>
-<h3 id="Python-Code"><a href="#Python-Code" class="headerlink" title="Python Code"></a>Python Code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSumClosest(self, nums: List[int], target: int) -&gt; int:</span><br><span class="line">        output = sum(nums[:3])</span><br><span class="line">        d = target - output if target &gt; output else output - target</span><br><span class="line">        nums = sorted(nums)</span><br><span class="line">        length = len(nums)</span><br><span class="line">        for i, n in enumerate(nums):</span><br><span class="line">            j = i + 1</span><br><span class="line">            k = length - 1</span><br><span class="line">            while j&lt;k:</span><br><span class="line">                s = n+nums[j]+nums[k]</span><br><span class="line">                d_ = target - s if target &gt; s else s - target</span><br><span class="line">                if d_ &lt; d:</span><br><span class="line">                    output = s</span><br><span class="line">                    d = d_</span><br><span class="line">                if s &gt; target:</span><br><span class="line">                    k -= 1</span><br><span class="line">                elif s &lt; target:</span><br><span class="line">                    j += 1</span><br><span class="line">                else:</span><br><span class="line">                    return s</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
-
-
-
+<h3 id="Python-Code"><a href="#Python-Code" class="headerlink" title="Python Code"></a>Python Code</h3><pre><code>class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -&gt; int:
+        output = sum(nums[:3])
+        d = target - output if target &gt; output else output - target
+        nums = sorted(nums)
+        length = len(nums)
+        for i, n in enumerate(nums):
+            j = i + 1
+            k = length - 1
+            while j&lt;k:
+                s = n+nums[j]+nums[k]
+                d_ = target - s if target &gt; s else s - target
+                if d_ &lt; d:
+                    output = s
+                    d = d_
+                if s &gt; target:
+                    k -= 1
+                elif s &lt; target:
+                    j += 1
+                else:
+                    return s
+        return output
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n^2).</p>
 <p>Space: O(1)</p>
 

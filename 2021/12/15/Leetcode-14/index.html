@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckx6civve0000w0maec25015s" class="article article-type-post" itemscope
+    <article id="post-cky123tmi000ftcma4ufobltm" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -150,17 +150,50 @@
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><ol>
 <li>Make a node list. Delete the n-th node directly.</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.</span><br><span class="line"># class ListNode:</span><br><span class="line">#     def __init__(self, val=0, next=None):</span><br><span class="line">#         self.val = val</span><br><span class="line">#         self.next = next</span><br><span class="line">class Solution:</span><br><span class="line">    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:</span><br><span class="line">        nodes = []</span><br><span class="line">        p = head</span><br><span class="line">        while p:</span><br><span class="line">            nodes.append(p)</span><br><span class="line">            p = p.next</span><br><span class="line">        if nodes[-n] == nodes[0]:</span><br><span class="line">            head = head.next</span><br><span class="line">        elif n == 1:</span><br><span class="line">            nodes[-2].next = None</span><br><span class="line">        else:</span><br><span class="line">            prev = nodes[-n-1]</span><br><span class="line">            prev.next = nodes[-n+1]</span><br><span class="line">        return head</span><br></pre></td></tr></table></figure>
-
-
-
+<pre><code># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:
+        nodes = []
+        p = head
+        while p:
+            nodes.append(p)
+            p = p.next
+        if nodes[-n] == nodes[0]:
+            head = head.next
+        elif n == 1:
+            nodes[-2].next = None
+        else:
+            prev = nodes[-n-1]
+            prev.next = nodes[-n+1]
+        return head
+</code></pre>
 <ol start="2">
 <li>Use two pointers. One pointer is <code>n</code> positions ahead of the other. Once the front pointer reach the end, delete the node of the former pointer.</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.</span><br><span class="line"># class ListNode:</span><br><span class="line">#     def __init__(self, val=0, next=None):</span><br><span class="line">#         self.val = val</span><br><span class="line">#         self.next = next</span><br><span class="line">class Solution:</span><br><span class="line">    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:</span><br><span class="line">        p1 = p2 = head</span><br><span class="line">        while n &gt; 0:</span><br><span class="line">            p2 = p2.next</span><br><span class="line">            n -= 1</span><br><span class="line">        while p2 and p2.next:</span><br><span class="line">            p1 = p1.next</span><br><span class="line">            p2 = p2.next</span><br><span class="line">        if not p2:</span><br><span class="line">            head = head.next</span><br><span class="line">        else:</span><br><span class="line">            p1.next = p1.next.next</span><br><span class="line">        return head</span><br></pre></td></tr></table></figure>
-
-
-
+<pre><code># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:
+        p1 = p2 = head
+        while n &gt; 0:
+            p2 = p2.next
+            n -= 1
+        while p2 and p2.next:
+            p1 = p1.next
+            p2 = p2.next
+        if not p2:
+            head = head.next
+        else:
+            p1.next = p1.next.next
+        return head
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: Both are O(n). </p>
 <p>Space: </p>
 <ul>

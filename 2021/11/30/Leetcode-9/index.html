@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwm4ouba0000scma8bgwhn9i" class="article article-type-post" itemscope
+    <article id="post-cky123tmz000ztcma20yohgn9" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -148,8 +148,31 @@
 <span id="more"></span>
 
 <h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>For each base, find the numeral and add correspondent roman numerals to the result.</p>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def intToRoman(self, num: int) -&gt; str:</span><br><span class="line">        signs = &#123;1:&quot;I&quot;, 5:&quot;V&quot;, 10:&quot;X&quot;, 50: &quot;L&quot;, 100: &quot;C&quot;, 500: &quot;D&quot;, 1000: &quot;M&quot;&#125;</span><br><span class="line">        bases = [1000, 100, 10, 1]</span><br><span class="line">        result = &quot;&quot;</span><br><span class="line">        for idx, base in enumerate(bases):</span><br><span class="line">            x = num // base</span><br><span class="line">            num -= x * base</span><br><span class="line">            if x == 9:</span><br><span class="line">                result += &quot;%s%s&quot; % (signs[base], signs[bases[idx - 1]])</span><br><span class="line">            elif x &gt;= 5:</span><br><span class="line">                result += signs[base * 5]</span><br><span class="line">                for _ in range(x - 5):</span><br><span class="line">                    result += signs[base]</span><br><span class="line">            elif x == 4:</span><br><span class="line">                result += &quot;%s%s&quot; % (signs[base], signs[base * 5])</span><br><span class="line">            elif x &gt; 0:</span><br><span class="line">                for _ in range(x):</span><br><span class="line">                    result += signs[base]</span><br><span class="line">            else:</span><br><span class="line">                continue</span><br><span class="line">        return result</span><br><span class="line">            </span><br><span class="line">                </span><br></pre></td></tr></table></figure>
-
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code>class Solution:
+    def intToRoman(self, num: int) -&gt; str:
+        signs = &#123;1:&quot;I&quot;, 5:&quot;V&quot;, 10:&quot;X&quot;, 50: &quot;L&quot;, 100: &quot;C&quot;, 500: &quot;D&quot;, 1000: &quot;M&quot;&#125;
+        bases = [1000, 100, 10, 1]
+        result = &quot;&quot;
+        for idx, base in enumerate(bases):
+            x = num // base
+            num -= x * base
+            if x == 9:
+                result += &quot;%s%s&quot; % (signs[base], signs[bases[idx - 1]])
+            elif x &gt;= 5:
+                result += signs[base * 5]
+                for _ in range(x - 5):
+                    result += signs[base]
+            elif x == 4:
+                result += &quot;%s%s&quot; % (signs[base], signs[base * 5])
+            elif x &gt; 0:
+                for _ in range(x):
+                    result += signs[base]
+            else:
+                continue
+        return result
+            
+                
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n), n is the number of bases.</p>
 <p>Space: O(n) to store the result.​</p>
 

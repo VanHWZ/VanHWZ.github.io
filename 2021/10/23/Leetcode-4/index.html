@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckv2sdoj70000c8wmatf032kg" class="article article-type-post" itemscope
+    <article id="post-cky123tmt000rtcmad9uwd1bh" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -155,12 +155,45 @@
 </ol>
 <p>I try to find all these patterns and start from them to find the longest palindrome.</p>
 <p>First, traverse the string and construct a dictionary <code>locations</code>(key=char, value=indices) to log the indices of  different characters. For example,</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;ababa&quot; -&gt; locations=&#123;&#x27;a&#x27;: [0, 2, 4], &#x27;b&#x27;: [1, 3]&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code>&quot;ababa&quot; -&gt; locations=&#123;&#39;a&#39;: [0, 2, 4], &#39;b&#39;: [1, 3]&#125;
+</code></pre>
 <p>Second, traverse each of the indices list to find “aa” or “aba” patterns. When found, start from them and find the longest palindrome. </p>
 <p>Finally, return the longest palindrome found.</p>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def longestPalindrome(self, s: str) -&gt; str:</span><br><span class="line">        def findPalindrome(string, s_len, i, j):</span><br><span class="line">            while i&gt;=0 and j &lt; len(string) and string[i] == string[j]:</span><br><span class="line">                i -= 1</span><br><span class="line">                j += 1</span><br><span class="line">            return string[i+1:j], j-i</span><br><span class="line">        </span><br><span class="line">        s_len = len(s)</span><br><span class="line">        </span><br><span class="line">        locations = &#123;&#125;</span><br><span class="line">        for idx, c in enumerate(s):</span><br><span class="line">            if not locations.get(c):</span><br><span class="line">                locations[c] = []</span><br><span class="line">            locations[c].append(idx)</span><br><span class="line">        </span><br><span class="line">        max_length = 1</span><br><span class="line">        palindrome = s[0]</span><br><span class="line">        for c, indices in locations.items():</span><br><span class="line">            len_indices = len(indices)</span><br><span class="line">            if len_indices == 1:</span><br><span class="line">                continue</span><br><span class="line">            for i, idx in enumerate(indices[:-1]):</span><br><span class="line">                if i + 1 &lt; len_indices and \ </span><br><span class="line">                		(indices[i+1] - idx == 1 or indices[i+1] - idx == 2):</span><br><span class="line">                    p, length = findPalindrome(s, s_len, idx, indices[i+1])</span><br><span class="line">                    if length &gt; max_length:</span><br><span class="line">                        palindrome, max_length = p, length</span><br><span class="line">                if i + 2 &lt; len_indices and indices[i+2] - idx == 2:</span><br><span class="line">                    p, length = findPalindrome(s, s_len, idx, indices[i+2])</span><br><span class="line">                    if length &gt; max_length:</span><br><span class="line">                        palindrome, max_length = p, length</span><br><span class="line"></span><br><span class="line">        return palindrome</span><br></pre></td></tr></table></figure>
+<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        def findPalindrome(string, s_len, i, j):
+            while i&gt;=0 and j &lt; len(string) and string[i] == string[j]:
+                i -= 1
+                j += 1
+            return string[i+1:j], j-i
+        
+        s_len = len(s)
+        
+        locations = &#123;&#125;
+        for idx, c in enumerate(s):
+            if not locations.get(c):
+                locations[c] = []
+            locations[c].append(idx)
+        
+        max_length = 1
+        palindrome = s[0]
+        for c, indices in locations.items():
+            len_indices = len(indices)
+            if len_indices == 1:
+                continue
+            for i, idx in enumerate(indices[:-1]):
+                if i + 1 &lt; len_indices and \ 
+                        (indices[i+1] - idx == 1 or indices[i+1] - idx == 2):
+                    p, length = findPalindrome(s, s_len, idx, indices[i+1])
+                    if length &gt; max_length:
+                        palindrome, max_length = p, length
+                if i + 2 &lt; len_indices and indices[i+2] - idx == 2:
+                    p, length = findPalindrome(s, s_len, idx, indices[i+2])
+                    if length &gt; max_length:
+                        palindrome, max_length = p, length
 
+        return palindrome
+</code></pre>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: $O(n^2)$</p>
 <p>n is the length of the string.</p>
 <ul>
