@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Custom Logger in Gin | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1633679241878.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1633679241878.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Hexo</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cky116ouq00005kma7pf24ce4" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Custom Logger in Gin
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-01-05T03:45:20.000Z" itemprop="datePublished">2022-01-05</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go-gin/" rel="tag">go/gin</a></li></ul>
+            </div>
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="Custom-Logger-in-Gin"><a href="#Custom-Logger-in-Gin" class="headerlink" title="Custom Logger in Gin"></a>Custom Logger in Gin</h1><p>There are several logging package in go:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">	&quot;log&quot;</span><br><span class="line">	&quot;github.com/antonfisher/nested-logrus-formatter&quot;</span><br><span class="line">	&quot;github.com/natefinch/lumberjack&quot;</span><br><span class="line">	&quot;github.com/sirupsen/logrus&quot;</span><br><span class="line">	&quot;github.com/lestrrat/go-file-rotatelogs&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>In my gin project, <a target="_blank" rel="noopener" href="https://github.com/sirupsen/logrus">logrus</a>+<a target="_blank" rel="noopener" href="https://github.com/natefinch/lumberjack">lumberjack</a>+<a href="github.com/antonfisher/nested-logrus-formatter">nested-logrus-formatter</a> are used to implement lo rotation. <a target="_blank" rel="noopener" href="https://github.com/lestrrat-go/file-rotatelogs">go-file-rotatelogs</a> also provides solution to it, but its author will not maintain it any more and suggest not to use it.</p>
+<h2 id="logrus-settings"><a href="#logrus-settings" class="headerlink" title="logrus settings"></a>logrus settings</h2><p>First create a logger instance from <code>logrus</code> and configures it. <code>lumberjack</code> overwrite the “write to file” action to implement log rotation, which is then set by <code>SetOutput(&amp;lumberjack.Logger&#123;&#125;)</code> method in <code>logrus</code>. <code>logrus</code> itself dose not provide fields order control, so <code>nested-logrus-formatter</code> is used.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//logger.go</span><br><span class="line"></span><br><span class="line">var (</span><br><span class="line">	logger = logrus.New()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">	path := filepath.Join(conf.Config.Logger.BaseDir, conf.Config.Logger.HttpLog)</span><br><span class="line">	if _, err := os.Stat(conf.Config.Logger.BaseDir); err != nil &#123;</span><br><span class="line">		os.MkdirAll(conf.Config.Logger.BaseDir, os.ModePerm)</span><br><span class="line">	&#125;</span><br><span class="line">	logger.SetOutput(&amp;lumberjack.Logger&#123;</span><br><span class="line">		Filename: path,</span><br><span class="line">		MaxSize: 1,</span><br><span class="line">		MaxBackups: 10,</span><br><span class="line">		MaxAge: 180,</span><br><span class="line">		Compress: true,</span><br><span class="line">	&#125;)</span><br><span class="line">	logger.SetFormatter(&amp;nested.Formatter&#123;</span><br><span class="line">		HideKeys:    false,</span><br><span class="line">		TimestampFormat: time.RFC3339,</span><br><span class="line">		NoColors: true,</span><br><span class="line">		FieldsOrder: []string&#123;&quot;from&quot;, &quot;method&quot;, &quot;uri&quot;, &quot;status&quot;, &quot;cost&quot;, &quot;request_header&quot;, &quot;request_body&quot;, &quot;response_body&quot;&#125;,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Gin-Log-Middleware"><a href="#Gin-Log-Middleware" class="headerlink" title="Gin Log Middleware"></a>Gin Log Middleware</h2><p>To log down the http request and response, a middleware is needed. </p>
+<h3 id="read-request-body"><a href="#read-request-body" class="headerlink" title="read request body"></a>read request body</h3><p>Noticed that the request body in gin can only be read once in all handlers, one should fill back the request body:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reqBody, _ := c.GetRawData()</span><br><span class="line">//an object with an empty close() method</span><br><span class="line">c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(reqBody)) </span><br></pre></td></tr></table></figure>
+
+<h3 id="read-response"><a href="#read-response" class="headerlink" title="read response"></a>read response</h3><p>To log down the response, a customized writer is needed (save response byte to another object in advance).</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">type BodyLogWriter struct &#123;</span><br><span class="line">	gin.ResponseWriter</span><br><span class="line">	Body *bytes.Buffer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (w BodyLogWriter) Write(b []byte) (int, error) &#123;</span><br><span class="line">	w.Body.Write(b)</span><br><span class="line">	return w.ResponseWriter.Write(b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func logger() gin.HandlerFunc &#123;</span><br><span class="line">    blw := &amp;util.BodyLogWriter&#123;Body: bytes.NewBufferString(&quot;&quot;), ResponseWriter: c.Writer&#125;</span><br><span class="line">    c.Writer = blw</span><br><span class="line">    c.Next()</span><br><span class="line">    repBody := blw.Body.String()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="complete-middleware"><a href="#complete-middleware" class="headerlink" title="complete middleware"></a>complete middleware</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">func HttpLogger() gin.HandlerFunc &#123;</span><br><span class="line">	return func(c *gin.Context) &#123;</span><br><span class="line">		blw := &amp;util.BodyLogWriter&#123;Body: bytes.NewBufferString(&quot;&quot;), ResponseWriter: c.Writer&#125;</span><br><span class="line">		c.Writer = blw</span><br><span class="line">		reqMethod := c.Request.Method</span><br><span class="line">		reqUri := c.Request.RequestURI</span><br><span class="line">		reqHeader := c.Request.Header</span><br><span class="line">		reqBody, _ := c.GetRawData()</span><br><span class="line">		reqIP := c.ClientIP()</span><br><span class="line">		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(reqBody))</span><br><span class="line"></span><br><span class="line">		startTime := time.Now()</span><br><span class="line">		now := time.Now()</span><br><span class="line"></span><br><span class="line">		c.Next()</span><br><span class="line"></span><br><span class="line">		endTime := time.Now()</span><br><span class="line">		processTime := endTime.Sub(startTime).Seconds()</span><br><span class="line">		statusCode := c.Writer.Status()</span><br><span class="line">		repBody := blw.Body.String()</span><br><span class="line"></span><br><span class="line">		entry := logger.WithFields(logrus.Fields&#123;</span><br><span class="line">			&quot;from&quot;: reqIP,</span><br><span class="line">			&quot;method&quot;: reqMethod,</span><br><span class="line">			&quot;uri&quot;: reqUri,</span><br><span class="line">			&quot;request_header&quot;: reqHeader,</span><br><span class="line">			&quot;request_body&quot;: string(reqBody),</span><br><span class="line">			&quot;status&quot;: statusCode,</span><br><span class="line">			&quot;cost&quot;: fmt.Sprintf(&quot;%fs&quot;, processTime),</span><br><span class="line">			&quot;response_body&quot;: repBody,</span><br><span class="line">		&#125;)</span><br><span class="line">		entry.Time = now</span><br><span class="line">		entry.Info(&quot;http request log&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2021/12/15/Leetcode-16/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Leetcode-Generate Parentheses</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Custom Logger in Gin - Hexo&url=https://vanhwz.github.io/2022/01/05/Custom-Logger-in-Gin/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Custom Logger in Gin - Hexo&u=https://vanhwz.github.io/2022/01/05/Custom-Logger-in-Gin/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Custom Logger in Gin - Hexo&url=https://vanhwz.github.io/2022/01/05/Custom-Logger-in-Gin/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leetcode/" rel="tag">Leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-gin/" rel="tag">go/gin</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2022/01/05/Custom-Logger-in-Gin/">Custom Logger in Gin</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/15/Leetcode-16/">Leetcode-Generate Parentheses</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/15/Leetcode-15/">Leetcode-Valid Parentheses</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/15/Leetcode-14/">Leetcode-Remove Nth Node From End of List</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/15/Leetcode-13/">Leetcode-4 Sum</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1633679241878.js"></script>
+
+
+<script src="/dist/custom.js?1633679241878.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
