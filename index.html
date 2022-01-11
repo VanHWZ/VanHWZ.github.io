@@ -120,70 +120,7 @@ class="article article-type-post"
     </header>
     <div class="article-entry post-inner-html">
         
-        <h1 id="Run-Gin-App-in-Docker"><a href="#Run-Gin-App-in-Docker" class="headerlink" title="Run Gin App in Docker"></a>Run Gin App in Docker</h1><p>I have developed a <a href="github.com/VanHWZ/miniprogram-backend">Gin application</a> and want to dockerize it to achieve faster deployment. Due to limited budget, the database used is also deployed in the same server.</p>
-<pre><code>                                      Database
-                                         |
-                                         |
-                                        Gin
-                                         |
-                                         |
-                                       client
-</code></pre>
-<h2 id="Dockerize-postgresql"><a href="#Dockerize-postgresql" class="headerlink" title="Dockerize postgresql"></a>Dockerize postgresql</h2><p>According to <a target="_blank" rel="noopener" href="https://hub.docker.com/_/postgres">postgresql docker documentation</a>, the following parameters are chosen to customize configuration.</p>
-<ul>
-<li>POSTGRES_USER: Databse user</li>
-<li>POSTGRES_PASSWORD: Database password</li>
-<li>POSTGRES_DB: Name of the created database</li>
-<li>PGDATA: Customized path to store data</li>
-</ul>
-<h3 id="Docker-storage-problem"><a href="#Docker-storage-problem" class="headerlink" title="Docker storage problem"></a>Docker storage problem</h3><p><a target="_blank" rel="noopener" href="https://docs.docker.com/storage/">Docker document</a> says by default all files created inside a container are stored on a writable container layer. The data doesn’t persist when the container no longer exists. So the data of postgresql should be stored elsewhere.</p>
-<p><strong>Volume</strong> and <strong>Bind mount</strong> are 2 methods for container to store files in host machine. The difference is <strong>Volume</strong> is stored in a part of the host filesystem which is managed by Docker (like <code>/var/lib/docker/volumes/</code> on Linux), while <strong>Bind mount</strong> may be stored anywhere on the host system.</p>
-<p>In my scenario, <strong>Bind mount</strong> is suitable to handle possible restart of dockerized database. 2 parameters are needed in docker run cmd:</p>
-<pre><code>-v /path/in/host/postgresqldata:/path/in/container/postgressqldata \
--e PGDATA=/path/in/container/postgressqldata \
-</code></pre>
-<h3 id="Container-Accessibility"><a href="#Container-Accessibility" class="headerlink" title="Container Accessibility"></a>Container Accessibility</h3><p>Use <code>bridge</code> and <code>--link</code> to expose <code>Postgresql</code> to <code>Gin App</code>. So <code>--name</code> is needed to specify container name.</p>
-<h3 id="Docker-Run-Example"><a href="#Docker-Run-Example" class="headerlink" title="Docker Run Example"></a>Docker Run Example</h3><pre><code>docker run -itd  --rm \
-    --name postgresql \ 
-    -p 0.0.0.0:5432:5432 \
-    -v /path/in/host/postgresqldata:/path/in/container/postgressqldata \
-    -e PGDATA=/path/in/container/postgressqldata \
-    -e POSTGRES_USER=user \
-    -e POSTGRES_PASSWORD=password \
-    -e POSTGRES_DB=databasename \
-    postgres:14
-</code></pre>
-<h2 id="Dockerize-Gin-App"><a href="#Dockerize-Gin-App" class="headerlink" title="Dockerize Gin App"></a>Dockerize Gin App</h2><pre><code># dockerfile
-FROM bitnami/golang:1.17.3
-
-# speedup for tencent server
-ENV GOPROXY=https://goproxy.io,direct 
-
-WORKDIR /backend
-
-COPY . /backend
-
-# replace debian sources and install some tools
-RUN wget -O /etc/apt/sources.list http://mirrors.cloud.tencent.com/repo/debian10_sources.list &amp;&amp; \
-    apt-get clean all &amp;&amp; \
-    apt-get update &amp;&amp; \
-    apt-get install -y vim net-tools
-RUN go build -o backend .
-
-EXPOSE 8080
-
-# bash -c command; nohup to redirect output
-ENTRYPOINT [&quot;bash&quot;,&quot;-c&quot;, &quot;nohup /eventbackend/backend &amp;&gt; /eventbackend/log/out.log&quot;]
-</code></pre>
-<p>docker cmd</p>
-<pre><code># save log in host
-docker run --rm -itd -p 8080:8080 \
-    --link postgresql:postgresql \
-    -v /root/log:/path/in/container/backend/log \
-    -e TZ=Asia/Shanghai \
-    backend:test
-</code></pre>
-
+        <h1 id="Run-Gin-App-in-Docker"><a href="#Run-Gin-App-in-Docker" class="headerlink" title="Run Gin App in Docker"></a>Run Gin App in Docker</h1>
         
     </div>
     </div>
