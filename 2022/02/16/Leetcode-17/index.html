@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Leetcode-4 Sum | Hexo</title>
+    <title>Leetcode-17 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-cky123tmh000etcmafkht1mws" class="article article-type-post" itemscope
+    <article id="post-ckzp7v4hf0000bwma2a8gf7kg" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -118,7 +118,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Leetcode-4 Sum
+      Leetcode-17
     </h1>
   
 
@@ -128,7 +128,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2021-12-14T16:11:36.000Z" itemprop="datePublished">2021-12-15</time>
+  <time datetime="2022-02-16T07:05:56.000Z" itemprop="datePublished">2022-02-16</time>
 </div>
 
             
@@ -144,43 +144,29 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="4-Sum"><a href="#4-Sum" class="headerlink" title="4 Sum"></a>4 Sum</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/4sum/">Original page</a></p>
+            <h1 id="Swap-Nodes-in-Pairs"><a href="#Swap-Nodes-in-Pairs" class="headerlink" title="Swap Nodes in Pairs"></a>Swap Nodes in Pairs</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/swap-nodes-in-pairs/">Original page</a></p>
 <span id="more"></span>
 
-<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Based on 2 Sum pointer solution, fix 2 elements each time. Use 2 ponters to find quadruplet with sum equals to <code>target</code>.</p>
-<h3 id="Python-Code"><a href="#Python-Code" class="headerlink" title="Python Code"></a>Python Code</h3><pre><code>class Solution:
-    def fourSum(self, nums: List[int], target: int) -&gt; List[List[int]]:
-        out = []
-        nums = sorted(nums)
-        i = 0
-        while i &lt; len(nums) - 3:
-            j = i + 1
-            while j &lt; len(nums)-2:
-                left = j + 1
-                right = len(nums) - 1
-
-                while left &lt; right:
-                    s = nums[i] + nums[j] + nums[left] + nums[right]
-                    if s &lt; target:
-                        left += 1
-                    elif s &gt; target:
-                        right -= 1
-                    else:
-                        out.append([nums[i], nums[j], nums[left], nums[right]])
-                        left += 1
-                        while left &lt; right and nums[left] == nums[left-1]:
-                            left += 1
-                j += 1
-                while j &lt; len(nums) - 2 and nums[j] == nums[j-1]:
-                    j += 1
-            i += 1
-            while i &lt; len(nums) - 3 and nums[i] == nums[i-1]:
-                i += 1
-                            
-        return out
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Traverse the list and swap every two nodes.</p>
+<pre><code class="python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -&gt; Optional[ListNode]:
+        start = ListNode(0, head)
+        p = start
+        while p.next and p.next.next:
+            temp = p.next
+            p.next = p.next.next
+            temp.next = p.next.next
+            p.next.next = temp
+            p = temp
+        return start.next
 </code></pre>
-<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n^3)</p>
-<p>Space: The maximum space needed is $n \choose 4$, i.e., O(n^4)</p>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n)</p>
+<p>Space: O(1)</p>
 
         </div>
 
@@ -199,19 +185,10 @@
     
 <nav class="article-nav">
   
-    <a href="/2021/12/15/Leetcode-14/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Leetcode-Remove Nth Node From End of List
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/12/13/Leetcode-12/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/01/11/Run-Gin-App-in-Docker/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">Leetcode-Letter Combinations of a Phone Number</div>
+      <div class="article-nav-title">Run Gin App in Docker</div>
     </a>
   
 </nav>
@@ -220,15 +197,15 @@
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Leetcode-4 Sum - Hexo&url=https://vanhwz.github.io/2021/12/15/Leetcode-13/">
+            href="https://twitter.com/share?text=Leetcode-17 - Hexo&url=https://vanhwz.github.io/2022/02/16/Leetcode-17/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Leetcode-4 Sum - Hexo&u=https://vanhwz.github.io/2021/12/15/Leetcode-13/">
+            href="https://www.facebook.com/sharer.php?title=Leetcode-17 - Hexo&u=https://vanhwz.github.io/2022/02/16/Leetcode-17/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Leetcode-4 Sum - Hexo&url=https://vanhwz.github.io/2021/12/15/Leetcode-13/&pic=">
+            href="https://service.weibo.com/share/share.php?title=Leetcode-17 - Hexo&url=https://vanhwz.github.io/2022/02/16/Leetcode-17/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
