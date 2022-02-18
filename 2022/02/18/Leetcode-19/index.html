@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Leetcode-Swap Nodes in Pairs | Hexo</title>
+    <title>Leetcode-Median of Two Sorted Arrays | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckzp7v4hf0000bwma2a8gf7kg" class="article article-type-post" itemscope
+    <article id="post-ckzs10fit0000hcmae7yw61yw" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -118,7 +118,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Leetcode-Swap Nodes in Pairs
+      Leetcode-Median of Two Sorted Arrays
     </h1>
   
 
@@ -128,7 +128,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2022-02-16T07:05:56.000Z" itemprop="datePublished">2022-02-16</time>
+  <time datetime="2022-02-18T06:01:02.000Z" itemprop="datePublished">2022-02-18</time>
 </div>
 
             
@@ -144,28 +144,78 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="Swap-Nodes-in-Pairs"><a href="#Swap-Nodes-in-Pairs" class="headerlink" title="Swap Nodes in Pairs"></a>Swap Nodes in Pairs</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/swap-nodes-in-pairs/">Original page</a></p>
+            <h1 id="Median-of-Two-Sorted-Arrays"><a href="#Median-of-Two-Sorted-Arrays" class="headerlink" title="Median of Two Sorted Arrays"></a>Median of Two Sorted Arrays</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/median-of-two-sorted-arrays/">Original page</a></p>
 <span id="more"></span>
 
-<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Traverse the list and swap every two nodes.</p>
-<pre><code class="python"># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def swapPairs(self, head: Optional[ListNode]) -&gt; Optional[ListNode]:
-        start = ListNode(0, head)
-        p = start
-        while p.next and p.next.next:
-            temp = p.next
-            p.next = p.next.next
-            temp.next = p.next.next
-            p.next.next = temp
-            p = temp
-        return start.next
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>2 sorted lists are given. We can always choose the shorter one to be the first list.</p>
+<p>Our goal is to find two delimiters for 2 lists such that the whole list is partitioned into 2 partitions and we can obtain median from numbers near the delimiters. If one delimiter is determined, then we can compute another delimiter because the number of one partition is half of the sum of 2 lists.</p>
+<pre><code>#x
+- - - - x_l | x_r - - - 
+#y
+- - - - - - y_l | y_r - - - - - - - 
+
+End condition:
+    max(x_l, y_l) &lt;= min(x_r, y_r)
+    
+median = max(x_l, y_l) or (max(x_l, y_l) + min(x_r, y_r)) / 2
 </code></pre>
-<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n)</p>
+<p>In addition, there are many corner cases, e.g., one of the list belongs to only one partition (i.e. delimiter=start/end).</p>
+<p>Then comes my code.</p>
+<pre><code class="python">class Solution:
+    def binarySearch(self, start, end, nums1, nums2):
+        split1 = (start + end) // 2
+        split2 = (len(nums1) + len(nums2) + 1) // 2 - split1
+
+        if 0 &lt; split1 &lt; len(nums1) or (split1 == len(nums1) and split2 != 0):
+            left_max = max(nums1[split1 - 1], nums2[split2 - 1])
+        elif split1 == 0:
+            left_max = nums2[split2 - 1]
+        elif split1 == len(nums1) and split2 == 0:
+            left_max = nums1[split1 - 1]
+
+        if split1 == len(nums1):
+            right_min = nums2[split2]
+        elif split2 == len(nums2):
+            right_min = nums1[split1]
+        else:
+            right_min = min(nums1[split1], nums2[split2])
+
+        if left_max &lt;= right_min:
+            if (len(nums1) + len(nums2)) % 2 == 0:
+                return (left_max + right_min) / 2
+            else:
+                return left_max
+        elif split1 == len(nums1):
+            return self.binarySearch(start, split1 - 1, nums1, nums2)
+        elif split1 == 0:
+            return self.binarySearch(split1 + 1, end, nums1, nums2)
+        elif nums1[split1 - 1] &gt; nums2[split2]:
+            return self.binarySearch(start, split1 - 1, nums1, nums2)
+        else:
+            return self.binarySearch(split1 + 1, end, nums1, nums2)
+    
+    def median(self, nums):
+        l = len(nums)
+        if l % 2 == 0:
+            return (nums[l // 2 - 1] + nums[l // 2]) / 2
+        else:
+            return nums[l // 2]
+    
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:
+        l1 = len(nums1)
+        l2 = len(nums2)
+        
+        if l1 == 0:
+            return self.median(nums2)
+        elif l2 == 0:
+            return self.median(nums1)
+
+        if l1 &gt; l2:
+            return self.binarySearch(0, l2, nums2, nums1)
+        else:
+            return self.binarySearch(0, l1, nums1, nums2)
+</code></pre>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(log(min(m,n)))</p>
 <p>Space: O(1)</p>
 
         </div>
@@ -185,19 +235,10 @@ class Solution:
     
 <nav class="article-nav">
   
-    <a href="/2022/02/16/Leetcode-18/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Leetcode-Reverse Nodes in k-Group
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/01/11/Run-Gin-App-in-Docker/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/02/16/Leetcode-18/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">Run Gin App in Docker</div>
+      <div class="article-nav-title">Leetcode-Reverse Nodes in k-Group</div>
     </a>
   
 </nav>
@@ -206,15 +247,15 @@ class Solution:
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Leetcode-Swap Nodes in Pairs - Hexo&url=https://vanhwz.github.io/2022/02/16/Leetcode-17/">
+            href="https://twitter.com/share?text=Leetcode-Median of Two Sorted Arrays - Hexo&url=https://vanhwz.github.io/2022/02/18/Leetcode-19/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Leetcode-Swap Nodes in Pairs - Hexo&u=https://vanhwz.github.io/2022/02/16/Leetcode-17/">
+            href="https://www.facebook.com/sharer.php?title=Leetcode-Median of Two Sorted Arrays - Hexo&u=https://vanhwz.github.io/2022/02/18/Leetcode-19/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Leetcode-Swap Nodes in Pairs - Hexo&url=https://vanhwz.github.io/2022/02/16/Leetcode-17/&pic=">
+            href="https://service.weibo.com/share/share.php?title=Leetcode-Median of Two Sorted Arrays - Hexo&url=https://vanhwz.github.io/2022/02/18/Leetcode-19/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
