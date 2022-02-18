@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Archive | 2021 | Hexo</title>
+    <title>Leetcode-Implement strStr() | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -30,7 +30,7 @@
 
 
     <script>
-        window.isPost = false
+        window.isPost = true
         window.aomori = {
             
             
@@ -101,148 +101,161 @@
         <div class="main">
             <section class="inner">
                 <section class="inner-main">
-                    <section class="archives-cover"></section>
+                    <div class="post">
+    <article id="post-ckzs3rjq10000t8magemn18y7" class="article article-type-post" itemscope
+    itemprop="blogPost">
 
+    <div class="article-inner">
 
-    
-    
-    
-    
-    <section class="archives-wrap">
-        <div class="archive-year-wrap">
-        <a href="/archives/2021" class="archive-year">2021</a>
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Leetcode-Implement strStr()
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-02-18T07:29:35.000Z" itemprop="datePublished">2022-02-18</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Leetcode/" rel="tag">Leetcode</a></li></ul>
+            </div>
+            
+
+            
+
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/15/Leetcode-16/">Leetcode-Generate Parentheses</a>
-    </h1>
-  
 
-</article>
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="Implement-strStr"><a href="#Implement-strStr" class="headerlink" title="Implement strStr()"></a>Implement strStr()</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-strstr/">Original page</a></p>
+<span id="more"></span>
 
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/15/Leetcode-15/">Leetcode-Valid Parentheses</a>
-    </h1>
-  
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>KMP.</p>
+<ol>
+<li>Compute <code>next()</code>. In comparison, </li>
+<li>Compare <code>haystack</code> and <code>needle</code>. Use <code>next()</code> to reduce comparisons.  If not matched, let <code>pn = next(pn - 1)</code>.</li>
+</ol>
+<pre><code class="python">class Solution:
+    def computeNext(self, needle):
+        self.next = [0]
+        p = 0
+        current = 1
+        
+        while current &lt; len(needle):
+            if needle[current] == needle[p]:
+                p += 1
+                current += 1
+                self.next.append(p) 
+            elif p:
+                p = self.next[p - 1]
+            else:
+                self.next.append(0)
+                current += 1
+        
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        if needle == &quot;&quot;:
+            return 0
+        
+        self.computeNext(needle)
+        
+        ph = 0
+        pn = 0
+        
+        while ph &lt; len(haystack) and pn &lt; len(needle):
+            if haystack[ph] == needle[pn]:
+                ph += 1
+                pn += 1
+            else:
+                if pn != 0:
+                    pn = self.next[pn - 1]
+                else:
+                    ph += 1
+                    
+        if pn == len(needle):
+            return ph - pn
+        else: 
+            return -1
+</code></pre>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(m+n). </p>
+<ul>
+<li>computeNext: O(n)</li>
+<li>main comparison: O(m)</li>
+</ul>
+<p>Space: O(1)</p>
 
-</article>
+        </div>
 
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/15/Leetcode-14/">Leetcode-Remove Nth Node From End of List</a>
-    </h1>
-  
-
-</article>
-
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/15/Leetcode-13/">Leetcode-4 Sum</a>
-    </h1>
-  
-
-</article>
-
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/13/Leetcode-12/">Leetcode-Letter Combinations of a Phone Number</a>
-    </h1>
-  
-
-</article>
-
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/13/Leetcode-11/">Leetcode-3 Sum Closest</a>
-    </h1>
-  
-
-</article>
+    </div>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/13/Leetcode-10/">Leetcode-3 Sum</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/30/Leetcode-9/">Leetcode-Integer to Roman</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/30/Leetcode-8/">Leetcode-Container With Most Water</a>
-    </h1>
-  
-
-</article>
 
     
+
     
-    <article class="archive-article archive-type-post">
+
+    
+<nav class="article-nav">
   
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/31/Leetcode-7/">Leetcode-String to Integer</a>
-    </h1>
+    <a href="/2022/02/18/Leetcode-19/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Leetcode-Median of Two Sorted Arrays</div>
+    </a>
   
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Leetcode-Implement strStr() - Hexo&url=https://vanhwz.github.io/2022/02/18/Leetcode-20/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Leetcode-Implement strStr() - Hexo&u=https://vanhwz.github.io/2022/02/18/Leetcode-20/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Leetcode-Implement strStr() - Hexo&url=https://vanhwz.github.io/2022/02/18/Leetcode-20/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
 
 </article>
 
 
-    </div></section>
 
 
 
-  <nav class="pagination">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2021/page/2/">2</a><a class="extend next" rel="next" href="/archives/2021/page/2/">下一页</a>
-  </nav>
 
 
+
+
+
+
+
+</div>
                 </section>
             </section>
 
@@ -254,6 +267,12 @@
 <div class="widget" id="widget">
     
       
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
     
       
 
