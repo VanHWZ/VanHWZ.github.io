@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Leetcode-Add Two Numbers | Hexo</title>
+    <title>Leetcode-Divide Two Integers | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -102,7 +102,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-cky123tmo000ltcma5lugftcf" class="article article-type-post" itemscope
+    <article id="post-ckzyfh0jx00003wmabvh0h0en" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -118,7 +118,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Leetcode-Add Two Numbers
+      Leetcode-Divide Two Integers
     </h1>
   
 
@@ -128,7 +128,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2021-10-14T19:39:50.000Z" itemprop="datePublished">2021-10-15</time>
+  <time datetime="2022-02-22T17:12:57.000Z" itemprop="datePublished">2022-02-23</time>
 </div>
 
             
@@ -144,34 +144,67 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="Add-Two-Numbers"><a href="#Add-Two-Numbers" class="headerlink" title="Add Two Numbers"></a>Add Two Numbers</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/add-two-numbers/">Original page</a></p>
+            <h1 id="Divide-Two-Integers"><a href="#Divide-Two-Integers" class="headerlink" title="Divide Two Integers"></a>Divide Two Integers</h1><p> <a target="_blank" rel="noopener" href="https://leetcode.com/problems/divide-two-integers/">Original page</a></p>
 <span id="more"></span>
 
-<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><p>Traverse both lists simultaneously, add them and save the carry of the next digit.</p>
-<h3 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h3><pre><code># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) \ 
-            -&gt; Optional[ListNode]:
-        add = 1 if l1.val + l2.val &gt; 9 else 0
-        head = ListNode((l1.val + l2.val) % 10)
-        l = head
-        l1 = l1.next
-        l2 = l2.next
-        while l1 or l2 or add:
-            s = (l1.val if l1 else 0) + (l2.val if l2 else 0) + add
-            add = 1 if s &gt; 9 else 0
-            l.next = ListNode(s % 10)
-            l = l.next
-            if l1: l1 = l1.next
-            if l2: l2 = l2.next
-        return head
+<p> <strong>Note:</strong> Assume we are dealing with an environment that could only store integers within the <strong>32-bit</strong> signed integer range: <code>[−2^31, 2^31 − 1]</code>. For this problem, if the quotient is <strong>strictly greater than</strong> <code>2^31 - 1</code>, then return <code>2^31 - 1</code>, and if the quotient is <strong>strictly less than</strong> <code>-2^31</code>, then return <code>-2^31</code>. </p>
+<h3 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h3><ol>
+<li>Change both numbers to negative(can deal with <code>-2^31</code>). Log down whether they have different signs.</li>
+<li>Use <code>num</code> and <code>sum</code> to track the sum of <code>num</code> divisors. Increase <code>sum</code> by <code>sum += sum</code> until <code>sum&lt;dividend</code></li>
+<li>Let <code>result+=last_num</code> to save previous result. Reset dividend to remainder and repeat step 2 until no remainder or <code>num-last_num == 1</code></li>
+</ol>
+<p>Only one special case (<code>dividend=-2147483648</code>, <code>divisor=-1</code>) leads to overflow of number. Need to handle it separately.</p>
+<pre><code class="python">class Solution:
+    def divide(self, dividend: int, divisor: int) -&gt; int:
+        # Note: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range
+        # special case
+        if dividend == -2147483648 and divisor == -1:
+            return 2147483647
+        
+        if (dividend &lt; 0 and divisor &gt; 0) or (dividend &gt; 0 and divisor &lt; 0):
+            minus = True
+        else:
+            minus = False
+        if dividend &gt; 0:
+            dividend = -dividend
+        if divisor &gt; 0:
+            divisor = -divisor
+
+        result = 0
+        last_num = 0
+        num = 1
+        last_sum = 0
+        cur_sum = divisor
+
+        while True:
+            while dividend - cur_sum &lt;= 0:
+                last_sum = cur_sum
+                if -2147483648 - cur_sum &gt; cur_sum:
+                    last_num = num
+                    break
+                cur_sum += cur_sum
+                last_num = num
+                num += num
+            result += last_num
+            if num - last_num == 1 or cur_sum == dividend:
+                break
+
+            dividend -= last_sum
+            last_sum = 0
+            cur_sum = divisor
+            last_num = 0
+            num = 1
+
+        result = result if not minus else -result
+
+        return result
 </code></pre>
-<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(n). Traversing the lists needs O(n) time.</p>
-<p>Space: O(n). The result needs O(n) space. O(1) space for other operations.</p>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>Time: O(log_2(dividend/divisor) )</p>
+<blockquote>
+<p>divisor*2^n = dividend</p>
+<p>n = log_2(dividend/divisor)</p>
+</blockquote>
+<p>Space: O(1)</p>
 
         </div>
 
@@ -190,19 +223,10 @@ class Solution:
     
 <nav class="article-nav">
   
-    <a href="/2021/10/17/Leetcode-3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Leetcode-Longest Substring Without Repeating Characters
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/10/11/Leetcode-1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/02/18/Leetcode-20/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">Leetcode-Two Sum</div>
+      <div class="article-nav-title">Leetcode-Implement strStr()</div>
     </a>
   
 </nav>
@@ -211,15 +235,15 @@ class Solution:
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Leetcode-Add Two Numbers - Hexo&url=https://vanhwz.github.io/2021/10/15/Leetcode-2/">
+            href="https://twitter.com/share?text=Leetcode-Divide Two Integers - Hexo&url=https://vanhwz.github.io/2022/02/23/Leetcode-21/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Leetcode-Add Two Numbers - Hexo&u=https://vanhwz.github.io/2021/10/15/Leetcode-2/">
+            href="https://www.facebook.com/sharer.php?title=Leetcode-Divide Two Integers - Hexo&u=https://vanhwz.github.io/2022/02/23/Leetcode-21/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Leetcode-Add Two Numbers - Hexo&url=https://vanhwz.github.io/2021/10/15/Leetcode-2/&pic=">
+            href="https://service.weibo.com/share/share.php?title=Leetcode-Divide Two Integers - Hexo&url=https://vanhwz.github.io/2022/02/23/Leetcode-21/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
